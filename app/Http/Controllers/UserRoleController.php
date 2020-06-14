@@ -32,7 +32,12 @@ class UserRoleController extends Controller
         $response['centrale']['id'] = $centrale->id;
         $response['centrale']['nom'] = $centrale->nom;
         $response['centrale']['type'] = $centrale->type;
-
+        $response['centrale']['subtype'] = $centrale->subtype;
+        if (strcasecmp($centrale->type, "Barrage") == 0) {
+            $horaires = ['7', '11', '14', '24'];
+        } else {
+            $horaires = ['7', '13', '21', '24'];
+        }
         $centraleInfos = $centrale->infos->whereNotNull('horaire');
         if (is_object($centraleInfos->last())) {
             $lastCentraleInfos = $centraleInfos->last();
@@ -43,21 +48,21 @@ class UserRoleController extends Controller
 
             switch ($lastCentraleInfos->horaire) {
                 case '7':
-                    $nextCentraleInfosDate = "$newCentraleInfosDate 13:00:00";
-                    if (date('Y-m-d H:i:s') > $nextCentraleInfosDate) $horaire = '13';
+                    $nextCentraleInfosDate = "$newCentraleInfosDate $horaires[1]:00:00";
+                    if (date('Y-m-d H:i:s') > $nextCentraleInfosDate) $horaire = $horaires[1];
                     break;
-                case '13':
-                    $nextCentraleInfosDate = "$newCentraleInfosDate 21:00:00";
-                    if (date('Y-m-d H:i:s') > $nextCentraleInfosDate) $horaire = '21';
+                case $horaires[1]:
+                    $nextCentraleInfosDate = "$newCentraleInfosDate $horaires[2]:00:00";
+                    if (date('Y-m-d H:i:s') > $nextCentraleInfosDate) $horaire = $horaires[2];
                     break;
-                case '21':
+                case $horaires[2]:
                     $nextCentraleInfosDate = "$newCentraleInfosDate 24:00:00";
                     Log::debug(date('Y-m-d H:i:s'));
                     Log::debug($nextCentraleInfosDate);
                     if (date('Y-m-d H:i:s') > $nextCentraleInfosDate) $horaire = '24';
                     break;
                 case '24':
-                    $newCentraleInfosDate = date("Y-m-d",strtotime("+1 day", strtotime($lastCentraleInfosDate)));
+                    $newCentraleInfosDate = date("Y-m-d", strtotime("+1 day", strtotime($lastCentraleInfosDate)));
                     $nextCentraleInfosDate = "$newCentraleInfosDate 07:00:00";
                     Log::debug(date('Y-m-d H:i:s'));
                     Log::debug($nextCentraleInfosDate);
@@ -88,14 +93,14 @@ class UserRoleController extends Controller
 
         $response = array();
         $centrale = $user->centrale;
-        $centraleInfos = $centrale->infos->where('type','=','previsions');
+        $centraleInfos = $centrale->infos->where('type', '=', 'previsions');
         if (is_object($centraleInfos->last())) {
             $lastPrevisions = $centraleInfos->last();
-            $lastPrevisionsDate =$lastPrevisions->date;
-            if(date('Y-m-d')<$lastPrevisionsDate) return response()->json($response, 230);
-            $newPrevisionsDate = date("Y-m-d",strtotime("+1 day",strtotime($lastPrevisionsDate)));
+            $lastPrevisionsDate = $lastPrevisions->date;
+            if (date('Y-m-d') < $lastPrevisionsDate) return response()->json($response, 230);
+            $newPrevisionsDate = date("Y-m-d", strtotime("+1 day", strtotime($lastPrevisionsDate)));
         } else {
-            $newPrevisionsDate = date("Y-m-d",strtotime("+1 day"));
+            $newPrevisionsDate = date("Y-m-d", strtotime("+1 day"));
         }
         $response['previsionsDate'] = $newPrevisionsDate;
 
@@ -132,6 +137,7 @@ class UserRoleController extends Controller
                     $infos->horaire = $data["horaire"];
                     $infos->date = $data["date"];
                     $infos->cote = $data["cote"];
+                    $infos->cote2 = $data["cote2"];
                     $infos->turbine = $data["turbine"];
                     $infos->irrigation = $data["irrigation"];
                     $infos->lache = $data["lache"];
@@ -152,7 +158,7 @@ class UserRoleController extends Controller
                 case "Eolien":
                     $infos = new EolienInfos();
                 case "Solaire":
-                    if(!isset($infos)) $infos = new SolaireInfos();
+                    if (!isset($infos)) $infos = new SolaireInfos();
                     $infos->type = $data["infosType"]; //Previsions or Productions
                     $infos->centrale()->associate($user->centrale->id);
                     $infos->save();
@@ -171,7 +177,7 @@ class UserRoleController extends Controller
                         $infos->save();
                     }
                     if (strcasecmp($infos->type, "previsions") == 0) {
-                        $infos->date = date("Y-m-d",strtotime("+1 day",time()));
+                        $infos->date = date("Y-m-d", strtotime("+1 day", time()));
                         foreach ($data['previsions'] as $key => $value) {
                             $prev = new Prevision;
                             $prev->horaire = $key;

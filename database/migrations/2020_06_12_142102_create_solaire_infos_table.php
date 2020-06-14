@@ -17,7 +17,7 @@ class CreateSolaireInfosTable extends Migration
             $table->id();
             $table->enum('type',['productions','previsions']);
             $table->enum('horaire',['7','13','21','24'])->nullable(true);
-            $table->date('date')->default(date('now'));
+            $table->date('date')->default(date('Y-m-d'));
             $table->double('production_totale_brut',15,4)->nullable(true);
             $table->double('production_totale_net',15,4)->nullable(true);
             $table->unsignedBigInteger('centrale_id');//->nullable(true);

@@ -29,33 +29,33 @@ class UserController extends Controller
             return response()->json(['error'=>'Unauthorised'], 401);
         }
     }
-    /**
-     * Register api
-     *
-     * @return JsonResponse
-     */
-    public function register(Request $request)
-    {
-        $user = Auth::user();
-        if(!isset($user) || strcasecmp($user->role,"admin")!=0) return response()->json(['error'=>'Unauthorised'], 401);
-
-        $validator = Validator::make($request->all(), [
-            'username' => 'required',
-            'password' => 'required',
-            'role'=> Rule::in(['user','pch','admin']),
-            'c_password' => 'required|same:password',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
-        }
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')-> accessToken;
-        $success['username'] =  $user->username;
-        $success['role'] =  $user->role;
-        return response()->json(['success'=>$success], $this-> successStatus);
-    }
+//    /**
+//     * Register api
+//     *
+//     * @return JsonResponse
+//     */
+//    public function register(Request $request)
+//    {
+//        $user = Auth::user();
+//        if(!isset($user) || strcasecmp($user->role,"admin")!=0) return response()->json(['error'=>'Unauthorised'], 401);
+//
+//        $validator = Validator::make($request->all(), [
+//            'username' => 'required',
+//            'password' => 'required',
+//            'role'=> Rule::in(['user','pch','admin']),
+//            'c_password' => 'required|same:password',
+//        ]);
+//        if ($validator->fails()) {
+//            return response()->json(['error'=>$validator->errors()], 401);
+//        }
+//        $input = $request->all();
+//        $input['password'] = bcrypt($input['password']);
+//        $user = User::create($input);
+//        $success['token'] =  $user->createToken('MyApp')-> accessToken;
+//        $success['username'] =  $user->username;
+//        $success['role'] =  $user->role;
+//        return response()->json(['success'=>$success], $this-> successStatus);
+//    }
     /**
      * details api
      *

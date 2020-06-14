@@ -22,14 +22,14 @@ Route::post('/login', 'API\UserController@login');
 
 Route::group(['middleware' => 'auth:api'], function(){
 // Here goes all the route requiring auth
-    Route::post('/register', 'API\UserController@register');
+//    Route::post('/register', 'API\UserController@register');
     Route::get('/details', 'API\UserController@details');
 
-    Route::get('/centrale/{id}', 'CentraleController@getById');
-    Route::get('/centrales', 'CentraleController@getAll');
-    Route::post('/centrales', 'CentraleController@create');
+//    Route::get('/centrale/{id}', 'CentraleController@getById');
+//    Route::get('/centrales', 'CentraleController@getAll');
+    Route::post('/centrales', 'AdminRoleController@createCentrale');
 
-    Route::post('/test', 'ReportController@index');
+//    Route::post('/test', 'ReportController@index');
 
     Route::get('/newPrevisions', 'UserRoleController@newPrevisions');
 

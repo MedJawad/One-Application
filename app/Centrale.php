@@ -12,7 +12,7 @@ class Centrale extends Model
      * @var array
      */
     protected $fillable = [
-        'nom', 'adresse', 'description', 'type'
+        'nom', 'adresse', 'description', 'type' , 'subtype'
     ];
 
     /**

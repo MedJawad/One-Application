@@ -13,7 +13,7 @@ class BarrageInfos extends Model
      * @var array
      */
     protected $fillable = [
-        'horaire','date','cote', 'turbine', 'irrigation','lache','production_totale_brut','production_totale_net'
+        'horaire','date','cote','cote2', 'turbine', 'irrigation','lache','production_totale_brut','production_totale_net'
     ];
 
     /**
