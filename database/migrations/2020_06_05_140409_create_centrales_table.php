@@ -18,7 +18,7 @@ class CreateCentralesTable extends Migration
             $table->string('nom')->unique();
             $table->string('adresse')->nullable();
             $table->string('description')->nullable();
-            $table->enum('type',['Barrage','Eolien','Solaire','Cycle Combine','Interconnexion','Thermique a charbon','Turbine a gaz']);
+            $table->enum('type',['Barrage','Eolien','Solaire','Cycle Combine','Thermique a charbon','Turbine a gaz']);
             $table->string('subtype')->default("normal");
             $table->unsignedBigInteger('user_id');//->nullable(true);
             $table->timestamps();

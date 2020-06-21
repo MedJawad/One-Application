@@ -5,8 +5,9 @@ import {
     Col,
     FormControl,
     Form,
-    Grid,
-    Row
+    Row,
+    Container,
+    Alert
 } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -48,12 +49,29 @@ const Auth = () => {
     if (useSelector(state => state.auth.token != null)) {
         authRedirect = <Redirect to="/" />;
     }
+
+    let authFailedMessage = null;
+    const authError = useSelector(state => state.auth.error);
+    if (authError) {
+        let message = authError.message || "An error has occurred";
+        if (message.includes("401")) message = "Wrong Username or Password";
+        authFailedMessage = (
+            <Col sm={{ span: 12 }}>
+                {/* //   <Alert variant="danger">
+      //     <p className="text-center">{authError.message}</p>
+      //   </Alert> */}
+                <div className="alert alert-danger text-center" role="alert">
+                    <strong>{message}</strong>
+                </div>
+            </Col>
+        );
+    }
     return (
         <div className="content">
             {authRedirect}
-            <Grid fluid>
+            <Container>
                 <Row>
-                    <Col md={4} mdOffset={4}>
+                    <Col sm={{ span: 4, offset: 4 }}>
                         <Card
                             ctTableResponsive
                             style={{
@@ -62,10 +80,10 @@ const Auth = () => {
                                 boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.5)"
                             }}
                             content={
-                                <Form horizontal onSubmit={handleSubmit}>
+                                <Form onSubmit={handleSubmit}>
                                     <h2 className="text-center">Log in</h2>
                                     <FormGroup controlId="formHorizontalEmail">
-                                        <Col smOffset={1} sm={10}>
+                                        <Col sm={{ span: 12 }}>
                                             <FormControl
                                                 type="text"
                                                 name="username"
@@ -78,7 +96,7 @@ const Auth = () => {
                                     </FormGroup>
 
                                     <FormGroup controlId="formHorizontalPassword">
-                                        <Col smOffset={1} sm={10}>
+                                        <Col sm={{ span: 12 }}>
                                             <FormControl
                                                 type="password"
                                                 name="password"
@@ -97,7 +115,7 @@ const Auth = () => {
                                         />
                                     ) : (
                                         <FormGroup>
-                                            <Col smOffset={1} sm={10}>
+                                            <Col sm={{ span: 12 }}>
                                                 <Button
                                                     type="submit"
                                                     className="btn btn-primary btn-fill btn-block"
@@ -111,12 +129,13 @@ const Auth = () => {
                                             </Col>
                                         </FormGroup>
                                     )}
+                                    {authFailedMessage}
                                 </Form>
                             }
                         />
                     </Col>
                 </Row>
-            </Grid>
+            </Container>
         </div>
     );
 };

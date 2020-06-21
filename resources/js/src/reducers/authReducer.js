@@ -23,6 +23,7 @@ export const auth = (state = initialState, action) => {
         isLoaded: true,
         error: null,
         token: action.token,
+        role: action.role,
       };
     case userActions.FAILURE:
       return {

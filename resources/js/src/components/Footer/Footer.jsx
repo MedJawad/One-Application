@@ -1,21 +1,19 @@
 import React, { Component } from "react";
-import { Grid } from "react-bootstrap";
 
 class Footer extends Component {
-  render() {
-    return (
-      <footer
-        className="footer"
-        style={{ position: "fixed", bottom: "0", width: "100%" }}
-      >
-        <Grid fluid>
-          <p className="copyright pull-left">
-            &copy; {new Date().getFullYear()} Synergie Media
-          </p>
-        </Grid>
-      </footer>
-    );
-  }
+    render() {
+        return (
+            <footer
+                className="footer"
+                style={{ position: "fixed", bottom: "0", width: "100%" }}
+            >
+                <p className="copyright pull-left">
+                    TOGETHER WE LEAD THE WAY AT ONEEP &copy;{" "}
+                    {new Date().getFullYear()}
+                </p>
+            </footer>
+        );
+    }
 }
 
 export default Footer;

@@ -24,12 +24,19 @@ class CreateUsersTable extends Migration
 
 //            $table->foreign('centrale_id')->references('id')->on('centrales');
         });
-        // Insert some stuff
+        // Insert Admin and pch
         DB::table('users')->insert(
             array(
                 'username' => 'admin',
                 'password' => bcrypt("admin"),
                 'role' => 'admin'
+            )
+        );
+        DB::table('users')->insert(
+            array(
+                'username' => 'pch',
+                'password' => bcrypt("pch"),
+                'role' => 'pch'
             )
         );
     }

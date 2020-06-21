@@ -4,6 +4,38 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+///**
+// * Centrale
+// *
+// * @mixin Eloquent
+// */
+/**
+ * App\Centrale
+ *
+ * @property int $id
+ * @property string $nom
+ * @property string|null $adresse
+ * @property string|null $description
+ * @property string $type
+ * @property string $subtype
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Centrale newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Centrale newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Centrale query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Centrale whereAdresse($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Centrale whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Centrale whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Centrale whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Centrale whereNom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Centrale whereSubtype($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Centrale whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Centrale whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Centrale whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Centrale extends Model
 {
     /**
@@ -23,18 +55,16 @@ class Centrale extends Model
         switch (strtolower($this->type)) {
             case "barrage":
                 return $this->hasMany('App\BarrageInfos');
-            case "thermique a charbon":
-                return $this->hasMany('App\TACInfos');
-            case "turbine a gaz":
-                return $this->hasMany('App\TAGInfos');
             case "solaire":
                 return $this->hasMany('App\SolaireInfos');
             case "eolien":
                 return $this->hasMany('App\EolienInfos');
+            case "thermique a charbon":
+                return $this->hasMany('App\TACInfos');
             case "cycle combine":
                 return $this->hasMany('App\CycleCombineInfos');
-            case "interconnexion":
-                return $this->hasMany('App\InterconnexionInfos');
+            case "turbine a gaz":
+                return $this->hasMany('App\TAGInfos');
         }
     }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { NavItem, Nav } from "react-bootstrap";
+import { NavItem, Nav, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import auth from "../../actions/auth";
 
@@ -9,22 +9,11 @@ function AdminNavbarLinks() {
     dispatch(auth.logout());
   };
   return (
-    <div>
-      <Nav>
-        <NavItem eventKey={1} href="/dashboard">
-          <i className="fa fa-dashboard" />
-          <p className="hidden-lg hidden-md">Dashboard</p>
-        </NavItem>
-      </Nav>
-      <Nav pullRight>
-        <NavItem eventKey={1} href="#">
-          Account
-        </NavItem>
-        <NavItem eventKey={3} href="#" onClick={logout}>
-          Log out
-        </NavItem>
-      </Nav>
-    </div>
+    <Nav className="justify-content-end ml-auto">
+      <Button variant="danger" className="ml-auto btn-fill" onClick={logout}>
+        Logout
+      </Button>
+    </Nav>
   );
 }
 

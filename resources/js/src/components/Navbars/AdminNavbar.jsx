@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navbar } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Form, Button } from "react-bootstrap";
 
 import AdminNavbarLinks from "./AdminNavbarLinks.jsx";
 
@@ -21,7 +21,7 @@ class Header extends Component {
     document.documentElement.classList.toggle("nav-open");
     var node = document.createElement("div");
     node.id = "bodyClick";
-    node.onclick = function () {
+    node.onclick = function() {
       this.parentElement.removeChild(this);
       document.documentElement.classList.toggle("nav-open");
     };
@@ -29,16 +29,18 @@ class Header extends Component {
   }
   render() {
     return (
-      <Navbar fluid>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a href="#pablo">{this.props.brandText}</a>
-          </Navbar.Brand>
-          <Navbar.Toggle onClick={this.mobileSidebarToggle} />
-        </Navbar.Header>
-        <Navbar.Collapse>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand href="#home">{this.props.brandText}</Navbar.Brand>
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          onClick={this.mobileSidebarToggle}
+        />
+        <Navbar.Collapse id="basic-navbar-nav">
           <AdminNavbarLinks />
         </Navbar.Collapse>
+        {/* <Navbar.Collapse id="basic-navbar-nav">
+          <AdminNavbarLinks />
+        </Navbar.Collapse> */}
       </Navbar>
     );
   }

@@ -3,6 +3,7 @@ import "./assets/css/animate.min.css";
 import "./assets/sass/light-bootstrap-dashboard-react.scss?v=1.3.0";
 import "./assets/css/demo.css";
 import "./assets/css/pe-icon-7-stroke.css";
+import "./index.css";
 
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
@@ -12,14 +13,14 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Provider } from "react-redux";
 
-import AdminLayout from "./layouts/Admin.jsx";
+import AppEntry from "./views/index.jsx";
 import Auth from "./Auth/Auth";
 import authActions from "./actions/auth";
 
 import store from "./store/index";
 
-const App = (props) => {
-    const isAuthenticated = useSelector((state) => state.auth.token != null);
+const App = props => {
+    const isAuthenticated = useSelector(state => state.auth.token != null);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(authActions.loginWithCookie());
@@ -34,12 +35,15 @@ const App = (props) => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/login" render={(props) => <Auth {...props} />} />
+                <Route path="/login" render={props => <Auth {...props} />} />
                 {authRedirect}
                 {isAuthenticated && (
-                    <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+                    <Route
+                        path="/admin"
+                        render={props => <AppEntry {...props} />}
+                    />
                 )}
-                {isAuthenticated && <Redirect from="/" to="/admin/dashboard" />}
+                {isAuthenticated && <Redirect from="/" to="/admin/" />}
             </Switch>
         </BrowserRouter>
     );

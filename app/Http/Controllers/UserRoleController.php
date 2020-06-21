@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\BarrageInfos;
 use App\Centrale;
+use App\CycleCombineInfos;
 use App\EolienInfos;
 use App\Prevision;
 use App\Production;
 use App\SolaireInfos;
+use App\TACInfos;
+use App\TAGInfos;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -143,6 +146,7 @@ class UserRoleController extends Controller
                     $infos->lache = $data["lache"];
                     $infos->production_totale_brut = $data["production_totale_brut"];
                     $infos->production_totale_net = $data["production_totale_net"];
+                    $infos->volume_pompe = $data["volume_pompe"];
                     $infos->centrale()->associate($user->centrale->id);
                     $infos->save();
 
@@ -188,6 +192,46 @@ class UserRoleController extends Controller
                         $infos->save();
                     }
                     break;
+                case "Thermique a charbon":
+                {
+                    $infos = new TACInfos();
+                    $infos->horaire = $data["horaire"];
+                    $infos->date = $data["date"];
+                    $infos->autonomie_charbon = $data["autonomie_charbon"];
+                    $infos->production_totale_brut = $data["production_totale_brut"];
+                    $infos->production_totale_net = $data["production_totale_net"];
+                    $infos->centrale()->associate($user->centrale->id);
+                    $infos->save();
+
+                    foreach ($data['productions'] as $key => $value) {
+                        $prod = new Production;
+                        $prod->horaire = $key;
+                        $prod->value = $value;
+                        $prod->productionable()->associate($infos);
+                        $prod->save();
+                    }
+                    break;
+                }
+                case "Cycle Combine":
+                {
+                    $infos = new CycleCombineInfos();
+                    $infos->horaire = $data["horaire"];
+                    $infos->date = $data["date"];
+                    $infos->production_totale_brut = $data["production_totale_brut"];
+                    $infos->production_totale_net = $data["production_totale_net"];
+                    $infos->centrale()->associate($user->centrale->id);
+                    $infos->save();
+
+                    foreach ($data['productions'] as $key => $value) {
+                        $prod = new Production;
+                        $prod->horaire = $key;
+                        $prod->value = $value;
+                        $prod->productionable()->associate($infos);
+                        $prod->save();
+                    }
+                    break;
+                }
+
 
             }
             DB::commit();
@@ -200,6 +244,146 @@ class UserRoleController extends Controller
             Log::debug($exception->getTraceAsString());
             return response()->json(['error' => $exception->getMessage()], 500);
         }
-
     }
+
+    public function lastDayReports()
+    {
+        $user = Auth::user();
+        if (!isset($user) || strcasecmp($user->role, "user") != 0) return response()->json(['error' => 'Unauthorised'], 401);
+
+        $response = array();
+        $centrale = $user->centrale;
+        $yesterday = date('Y-m-d', strtotime("-1 days"));
+        $centraleInfos = $centrale->infos->where('date', '>=', $yesterday);
+
+        $response['reports'] = $centraleInfos;
+
+        return response()->json($response, $this->successStatus);
+    }
+    /**
+     *
+     * @param int $report_id
+     * @return JsonResponse
+     */
+    public function getReportById($report_id)
+    {
+        $user = Auth::user();
+        if (!isset($user) || strcasecmp($user->role, "user") != 0) return response()->json(['error' => 'Unauthorised'], 401);
+
+        $response = array();
+        $centrale = $user->centrale;
+
+        $response['centrale']['id'] = $centrale->id;
+        $response['centrale']['nom'] = $centrale->nom;
+        $response['centrale']['type'] = $centrale->type;
+        $response['centrale']['subtype'] = $centrale->subtype;
+
+        $centraleInfos = $centrale->infos->where('id','=',$report_id)->first();
+        Log::debug($centraleInfos);
+        $response['centrale']['horaire'] = $centraleInfos->horaire;
+        $response['centrale']['date'] = $centraleInfos->date;
+
+
+        return response()->json($response, $this->successStatus);
+    }
+    /**
+     *
+     * @param Request $request
+     * @param int $report_id
+     * @return JsonResponse
+     */
+    public function updateReportById(Request $request , $report_id)
+    {
+        $user = Auth::user();
+        if (!isset($user) || strcasecmp($user->role, "user") != 0) return response()->json(['error' => 'Unauthorised'], 401);
+        DB::beginTransaction();
+        try {
+            $data = $request->json()->all();
+            Log::debug($data);
+            $response = array();
+            $centrale = $user->centrale;
+            $centraleInfos = $centrale->infos->where('id','=',$report_id)->first();
+            switch ($user->centrale->type) {
+                case "Barrage":
+                {
+                    $centraleInfos->cote = $data["cote"];
+                    $centraleInfos->cote2 = $data["cote2"];
+                    $centraleInfos->turbine = $data["turbine"];
+                    $centraleInfos->irrigation = $data["irrigation"];
+                    $centraleInfos->lache = $data["lache"];
+                    $centraleInfos->production_totale_brut = $data["production_totale_brut"];
+                    $centraleInfos->production_totale_net = $data["production_totale_net"];
+                    $centraleInfos->volume_pompe = $data["volume_pompe"];
+                    $centraleInfos->save();
+                    foreach ($data['productions'] as $key => $value) {
+                        $prod = $centraleInfos->productions->where('horaire',$key)->first();
+                        $prod->value = $value;
+                        $prod->save();
+                    }
+                    break;
+                }
+                case "Eolien":
+                case "Solaire":
+                $centraleInfos->type = $data["infosType"]; //Previsions or Productions
+                    if (strcasecmp($centraleInfos->type, "productions") == 0) {
+                        $centraleInfos->production_totale_brut = $data["production_totale_brut"];
+                        $centraleInfos->production_totale_net = $data["production_totale_net"];
+                        foreach ($data['productions'] as $key => $value) {
+                            $prod = $centraleInfos->productions->where('horaire',$key)->first();
+                            $prod->value = $value;
+                            $prod->save();
+                        }
+                        $centraleInfos->save();
+                    }
+                    if (strcasecmp($centraleInfos->type, "previsions") == 0) {
+                        foreach ($data['previsions'] as $key => $value) {
+                            $prev = $centraleInfos->previsions->where('horaire',$key)->first();
+                            $prev->value = $value;
+                            $prev->save();
+                        }
+                        $centraleInfos->save();
+                    }
+                    break;
+                case "Thermique a charbon":
+                {
+                    $centraleInfos->autonomie_charbon = $data["autonomie_charbon"];
+                    $centraleInfos->production_totale_brut = $data["production_totale_brut"];
+                    $centraleInfos->production_totale_net = $data["production_totale_net"];
+                    $centraleInfos->save();
+
+                    foreach ($data['productions'] as $key => $value) {
+                        $prod = $centraleInfos->productions->where('horaire',$key)->first();
+                        $prod->value = $value;
+                        $prod->save();
+                    }
+                    break;
+                }
+                case "Cycle Combine":
+                {
+                    $centraleInfos->production_totale_brut = $data["production_totale_brut"];
+                    $centraleInfos->production_totale_net = $data["production_totale_net"];
+                    $centraleInfos->save();
+
+                    foreach ($data['productions'] as $key => $value) {
+                        $prod = $centraleInfos->productions->where('horaire',$key)->first();
+                        $prod->value = $value;
+                        $prod->save();
+                    }
+                    break;
+                }
+
+
+            }
+            DB::commit();
+
+            $response['infos'] = $centraleInfos;
+            return response()->json($response);
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::debug($exception->getMessage());
+            Log::debug($exception->getTraceAsString());
+            return response()->json(['error' => $exception->getMessage()], 500);
+        }
+    }
+
 }

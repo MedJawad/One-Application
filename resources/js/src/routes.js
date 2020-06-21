@@ -1,29 +1,105 @@
-import Dashboard from "./views/Dashboard.jsx";
-import LocationFilesList from "./views/LocationFilesList";
-import ReviewFilesList from "./views/ReviewFilesList";
-
-const dashboardRoutes = [
+import React from "react";
+import { FcDam, FcFactory } from "react-icons/fc";
+import {
+    FaSolarPanel,
+    FaThermometerHalf,
+    FaDownload,
+    FaFolder
+} from "react-icons/fa";
+import { GiPaperWindmill } from "react-icons/gi";
+import { MdCreateNewFolder } from "react-icons/md";
+import NewReport from "./views/user/NewReport.jsx";
+import NewCentrale from "./views/admin/NewCentrale";
+import DownloadReport from "./views/admin/DownloadReport";
+import CentralesList from "./views/admin/CentralesList.jsx";
+import ReportsList from "./views/user/ReportsList.jsx";
+export const userRoutes = [
     {
-        path: "/newRapport",
+        path: "/admin/newReport",
         name: "Nouveau Rapport",
-        icon: "pe-7s-graph",
-        component: Dashboard,
-        layout: "/admin"
+        icon: <MdCreateNewFolder />, //"pe-7s-note2",
+        // component: NewReport,
+        render: props => <NewReport {...props} />
     },
     {
-        path: "/barrages",
-        name: "Barrages",
-        icon: "pe-7s-note2",
-        component: LocationFilesList,
-        layout: "/admin"
-    },
-    {
-        path: "/eoliennes",
-        name: "Eoliennes",
-        icon: "pe-7s-note2",
-        component: ReviewFilesList,
-        layout: "/admin"
+        path: "/admin/reports",
+        name: "Voir Rapports",
+        icon: <FaFolder />, //"pe-7s-note2",
+        // component: NewReport,
+        render: props => <ReportsList {...props} />
     }
 ];
-
-export default dashboardRoutes;
+export const pchRoutes = [
+    // {
+    //   path: "/newReport",
+    //   name: "Nouveau Rapport",
+    //   icon: "pe-7s-note2",
+    //   component: NewReport,
+    //   layout: "/admin",
+    // },
+    {
+        path: "/admin/barrages",
+        name: "Barrages",
+        icon: "pe-7s-graph"
+        // component: LocationFilesList,
+    },
+    {
+        path: "/admin/eoliennes",
+        name: "Parc Eoliens",
+        icon: "pe-7s-diskette"
+        // component: ReviewFilesList,
+    }
+];
+export const adminRoutes = [
+    {
+        path: "/admin/newCentrale",
+        name: "Nouvelle Centrale",
+        icon: <MdCreateNewFolder size={30} />, //"pe-7s-note2",
+        // component: NewCentrale,
+        render: props => <NewCentrale {...props} />
+    },
+    {
+        path: "/admin/getReport",
+        name: "Telecharger Rapport",
+        icon: <FaDownload size={30} />, //"pe-7s-note2",
+        // component: ReportsList,
+        render: props => <DownloadReport {...props} />
+    },
+    {
+        path: "/admin/barrages",
+        name: "Barrages",
+        icon: <FcDam size={30} />, //"pe-7s-graph",//FcDam
+        // component: CentralesList,
+        render: props => <CentralesList {...props} type="barrage" />
+    },
+    {
+        path: "/admin/eoliens",
+        name: "Parc Eoliens",
+        icon: <GiPaperWindmill size={30} />, //"pe-7s-diskette",//GiPaperWindmill
+        // component: CentralesList,
+        render: props => <CentralesList {...props} type={"eolien"} />
+    },
+    {
+        path: "/admin/solaire",
+        name: "Energie Solaire",
+        icon: <FaSolarPanel size={30} />, //"pe-7s-graph", //FaSolarPanel
+        // component: CentralesList,
+        render: props => <CentralesList {...props} type={"solaire"} />
+    },
+    {
+        path: "/admin/cycleCombine",
+        name: "Cycle Combiné",
+        icon: <FcFactory size={30} />, // "pe-7s-diskette",
+        // component: ReviewFilesList,
+        render: props => <CentralesList {...props} type={"cycle combine"} />
+    },
+    {
+        path: "/admin/thermiques",
+        name: "C.Thermiques",
+        icon: <FaThermometerHalf size={30} />, // "pe-7s-diskette",
+        // component: CentralesList,
+        render: props => (
+            <CentralesList {...props} type={"thermique a charbon"} />
+        )
+    }
+];

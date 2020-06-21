@@ -21,6 +21,7 @@ class CreateBarrageInfosTable extends Migration
             $table->date('date')->default(date('Y-m-d'));
             $table->double( 'cote',15,4)->nullable(true)->default(0);
             $table->double( 'cote2',15,4)->nullable(true)->default(0);
+            $table->double( 'volume_pompe',15,4)->nullable(true)->default(0);
             $table->double('turbine',15,4)->nullable(true)->default(0);
             $table->double('irrigation',15,4)->nullable(true)->default(0);
             $table->double('lache',15,4)->nullable(true)->default(0);
