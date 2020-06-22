@@ -85,9 +85,9 @@ const AppEntry = props => {
                                 component={EditCentrale}
                             />
                             <Route
-                                exact
+                                //exact
                                 path={"/admin/reports/:report_id"}
-                                component={EditReport}
+                                render={props => <EditReport {...props} />}
                             />
                             {getRoutes(routes)}
                             <Redirect from="/admin/" to={`${routes[0].path}`} />

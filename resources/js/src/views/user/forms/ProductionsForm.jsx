@@ -54,7 +54,7 @@ const ProductionsForm = ({
         }
         setFormData({ ...formData, productions });
     }, []);
-    console.log(formData);
+    // console.log(formData);
 
     // const handleFormSubmit = e => {
     //     e.preventDefault();
@@ -102,8 +102,8 @@ const ProductionsForm = ({
                         value={formData.productions[e]}
                         onChange={event => {
                             let value = event.target.value;
-                            console.log(value);
-                            console.log(isNaN(value));
+                            // console.log(value);
+                            // console.log(isNaN(value));
 
                             if (
                                 Number(value) < 0 ||
@@ -114,7 +114,7 @@ const ProductionsForm = ({
                             }
                             const newProductions = formData.productions;
                             newProductions[e] = Number(value);
-                            console.log(newProductions[e]);
+                            // console.log(newProductions[e]);
 
                             // newProduction[e] = value;
                             setFormData({

@@ -23,15 +23,18 @@ use phpDocumentor\Reflection\Types\Array_;
 class UserRoleController extends Controller
 {
     public $successStatus = 200;
-
-    public function newProductions()
+    public function checkPermission()
     {
         $user = Auth::user();
-        if (!isset($user) || strcasecmp($user->role, "user") != 0) return response()->json(['error' => 'Unauthorised'], 401);
+        if (isset($user) || strcasecmp($user->role, "user") == 0) return $user;
+        return false;
+    }
+    public function newProductions()
+    {
+        if (!($user = $this->checkPermission())) return response()->json(['error' => 'Unauthorised'], 401);
 
         $response = array();
         $centrale = $user->centrale;
-
         $response['centrale']['id'] = $centrale->id;
         $response['centrale']['nom'] = $centrale->nom;
         $response['centrale']['type'] = $centrale->type;
@@ -91,8 +94,7 @@ class UserRoleController extends Controller
 
     public function newPrevisions()
     {
-        $user = Auth::user();
-        if (!isset($user) || strcasecmp($user->role, "user") != 0) return response()->json(['error' => 'Unauthorised'], 401);
+        if (!($user = $this->checkPermission())) return response()->json(['error' => 'Unauthorised'], 401);
 
         $response = array();
         $centrale = $user->centrale;
@@ -120,33 +122,17 @@ class UserRoleController extends Controller
 
     public function saveInfos(Request $request)
     {
+        if (!($user = $this->checkPermission())) return response()->json(['error' => 'Unauthorised'], 401);
         DB::beginTransaction();
         try {
-
-            $user = Auth::user();
-            if (!isset($user) || strcasecmp($user->role, "user") != 0) return response()->json(['error' => 'Unauthorised'], 401);
-
             $data = $request->json()->all();
-            Log::debug($data);
-//        $validator = Validator::make($request->all(), [
-//            'nom' =>'required',
-//            'type'=> Rule::in(['Barrage','Eolien','Cycle Combine','Interconnexion','SolaireInfos','Thermique a charbon','Turbine a gaz']),
-//        ]);
-
             switch ($user->centrale->type) {
                 case "Barrage":
                 {
                     $infos = new BarrageInfos();
                     $infos->horaire = $data["horaire"];
                     $infos->date = $data["date"];
-                    $infos->cote = $data["cote"];
-                    $infos->cote2 = $data["cote2"];
-                    $infos->turbine = $data["turbine"];
-                    $infos->irrigation = $data["irrigation"];
-                    $infos->lache = $data["lache"];
-                    $infos->production_totale_brut = $data["production_totale_brut"];
-                    $infos->production_totale_net = $data["production_totale_net"];
-                    $infos->volume_pompe = $data["volume_pompe"];
+                    $this->fillBarrageInfosFromData($infos,$data);
                     $infos->centrale()->associate($user->centrale->id);
                     $infos->save();
 
@@ -248,18 +234,25 @@ class UserRoleController extends Controller
 
     public function lastDayReports()
     {
-        $user = Auth::user();
-        if (!isset($user) || strcasecmp($user->role, "user") != 0) return response()->json(['error' => 'Unauthorised'], 401);
+        if (!($user = $this->checkPermission())) return response()->json(['error' => 'Unauthorised'], 401);
 
         $response = array();
         $centrale = $user->centrale;
         $yesterday = date('Y-m-d', strtotime("-1 days"));
-        $centraleInfos = $centrale->infos->where('date', '>=', $yesterday);
+//        $centraleInfos = $centrale->infos->where('date', '>=', $yesterday);
+    Log::debug($centrale->type);
+        if(strcasecmp($centrale->type,"Eolien")==0 || strcmp($centrale->type,"Solaire")==0){
+            $centraleInfos = $centrale->infos->where('date', '>=', $yesterday)->where('type','=','productions');
+        }else{
+            $centraleInfos = $centrale->infos->where('date', '>=', $yesterday);
+        }
+        Log::debug($centraleInfos);
 
         $response['reports'] = $centraleInfos;
 
         return response()->json($response, $this->successStatus);
     }
+
     /**
      *
      * @param int $report_id
@@ -267,24 +260,35 @@ class UserRoleController extends Controller
      */
     public function getReportById($report_id)
     {
-        $user = Auth::user();
-        if (!isset($user) || strcasecmp($user->role, "user") != 0) return response()->json(['error' => 'Unauthorised'], 401);
+        if (!($user = $this->checkPermission())) return response()->json(['error' => 'Unauthorised'], 401);
 
         $response = array();
         $centrale = $user->centrale;
-
         $response['centrale']['id'] = $centrale->id;
         $response['centrale']['nom'] = $centrale->nom;
         $response['centrale']['type'] = $centrale->type;
         $response['centrale']['subtype'] = $centrale->subtype;
 
-        $centraleInfos = $centrale->infos->where('id','=',$report_id)->first();
-        Log::debug($centraleInfos);
+        $centraleInfos = $centrale->infos->where('id', '=', $report_id)->first();
+//        Log::debug($centraleInfos);
         $response['centrale']['horaire'] = $centraleInfos->horaire;
         $response['centrale']['date'] = $centraleInfos->date;
 
 
         return response()->json($response, $this->successStatus);
+    }
+
+    private function fillBarrageInfosFromData($infos,$data)
+    {
+        $infos->cote = $data["cote"];
+        $infos->cote2 = $data["cote2"];
+        $infos->turbine = $data["turbine"];
+        $infos->irrigation = $data["irrigation"];
+        $infos->lache = $data["lache"];
+        $infos->production_totale_brut = $data["production_totale_brut"];
+        $infos->production_totale_net = $data["production_totale_net"];
+        $infos->volume_pompe = $data["volume_pompe"];
+        return $infos;
     }
     /**
      *
@@ -292,31 +296,22 @@ class UserRoleController extends Controller
      * @param int $report_id
      * @return JsonResponse
      */
-    public function updateReportById(Request $request , $report_id)
+    public function updateReportById(Request $request, $report_id)
     {
-        $user = Auth::user();
-        if (!isset($user) || strcasecmp($user->role, "user") != 0) return response()->json(['error' => 'Unauthorised'], 401);
+        if (!($user = $this->checkPermission())) return response()->json(['error' => 'Unauthorised'], 401);
+
         DB::beginTransaction();
         try {
             $data = $request->json()->all();
-            Log::debug($data);
-            $response = array();
             $centrale = $user->centrale;
-            $centraleInfos = $centrale->infos->where('id','=',$report_id)->first();
+            $infos = $centrale->infos->where('id', '=', $report_id)->first();
             switch ($user->centrale->type) {
                 case "Barrage":
                 {
-                    $centraleInfos->cote = $data["cote"];
-                    $centraleInfos->cote2 = $data["cote2"];
-                    $centraleInfos->turbine = $data["turbine"];
-                    $centraleInfos->irrigation = $data["irrigation"];
-                    $centraleInfos->lache = $data["lache"];
-                    $centraleInfos->production_totale_brut = $data["production_totale_brut"];
-                    $centraleInfos->production_totale_net = $data["production_totale_net"];
-                    $centraleInfos->volume_pompe = $data["volume_pompe"];
-                    $centraleInfos->save();
+                    $this->fillBarrageInfosFromData($infos,$data);
+                    $infos->save();
                     foreach ($data['productions'] as $key => $value) {
-                        $prod = $centraleInfos->productions->where('horaire',$key)->first();
+                        $prod = $infos->productions->where('horaire', $key)->first();
                         $prod->value = $value;
                         $prod->save();
                     }
@@ -324,35 +319,38 @@ class UserRoleController extends Controller
                 }
                 case "Eolien":
                 case "Solaire":
-                $centraleInfos->type = $data["infosType"]; //Previsions or Productions
-                    if (strcasecmp($centraleInfos->type, "productions") == 0) {
-                        $centraleInfos->production_totale_brut = $data["production_totale_brut"];
-                        $centraleInfos->production_totale_net = $data["production_totale_net"];
+                $infos->type = $data["infosType"]; //Previsions or Productions
+                    if (strcasecmp($infos->type, "productions") == 0) {
+                        $infos->production_totale_brut = $data["production_totale_brut"];
+                        $infos->production_totale_net = $data["production_totale_net"];
                         foreach ($data['productions'] as $key => $value) {
-                            $prod = $centraleInfos->productions->where('horaire',$key)->first();
+                            $prod = $infos->productions->where('horaire', $key)->first();
                             $prod->value = $value;
                             $prod->save();
                         }
-                        $centraleInfos->save();
+                        $infos->save();
                     }
-                    if (strcasecmp($centraleInfos->type, "previsions") == 0) {
+                    elseif (strcasecmp($infos->type, "previsions") == 0) {
                         foreach ($data['previsions'] as $key => $value) {
-                            $prev = $centraleInfos->previsions->where('horaire',$key)->first();
+                            $prev = $infos->previsions->where('horaire', $key)->first();
                             $prev->value = $value;
                             $prev->save();
                         }
-                        $centraleInfos->save();
+                        $infos->save();
+                    }
+                    else{
+                        return response()->json(['error' => 'Unauthorised'], 401);
                     }
                     break;
                 case "Thermique a charbon":
                 {
-                    $centraleInfos->autonomie_charbon = $data["autonomie_charbon"];
-                    $centraleInfos->production_totale_brut = $data["production_totale_brut"];
-                    $centraleInfos->production_totale_net = $data["production_totale_net"];
-                    $centraleInfos->save();
+                    $infos->autonomie_charbon = $data["autonomie_charbon"];
+                    $infos->production_totale_brut = $data["production_totale_brut"];
+                    $infos->production_totale_net = $data["production_totale_net"];
+                    $infos->save();
 
                     foreach ($data['productions'] as $key => $value) {
-                        $prod = $centraleInfos->productions->where('horaire',$key)->first();
+                        $prod = $infos->productions->where('horaire', $key)->first();
                         $prod->value = $value;
                         $prod->save();
                     }
@@ -360,23 +358,21 @@ class UserRoleController extends Controller
                 }
                 case "Cycle Combine":
                 {
-                    $centraleInfos->production_totale_brut = $data["production_totale_brut"];
-                    $centraleInfos->production_totale_net = $data["production_totale_net"];
-                    $centraleInfos->save();
-
+                    $infos->production_totale_brut = $data["production_totale_brut"];
+                    $infos->production_totale_net = $data["production_totale_net"];
+                    $infos->save();
                     foreach ($data['productions'] as $key => $value) {
-                        $prod = $centraleInfos->productions->where('horaire',$key)->first();
+                        $prod = $infos->productions->where('horaire', $key)->first();
                         $prod->value = $value;
                         $prod->save();
                     }
                     break;
                 }
-
-
             }
             DB::commit();
+            $response = array();
 
-            $response['infos'] = $centraleInfos;
+            $response['infos'] = $infos;
             return response()->json($response);
         } catch (\Exception $exception) {
             DB::rollBack();

@@ -6,12 +6,19 @@ use App\Centrale;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AdminRoleController extends Controller
 {
+    public function checkPermission()
+    {
+        $user = Auth::user();
+        if (isset($user) || strcasecmp($user->role, "admin") == 0) return $user;
+        return false;
+    }
     /**
      * Create centrale
      *
@@ -20,8 +27,7 @@ class AdminRoleController extends Controller
      */
     public function createCentrale(Request $request)
     {
-        $user = Auth::user();
-        if (!isset($user) || strcasecmp($user->role, "admin") != 0) return response()->json(['error' => 'Unauthorised'], 401);
+        if (!($user = $this->checkPermission())) return response()->json(['error' => 'Unauthorised'], 401);
 
         $validator = Validator::make($request->all(), [
             'username' => 'required',
@@ -36,18 +42,14 @@ class AdminRoleController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $centraleUser = User::create($input);
+
         $response = array();
-
-//        $response['username'] =  $centraleUser->username;
-//        $response['role'] =  $centraleUser->role;
-
         $centrale = new Centrale;
         $centrale->nom = request('nom');
         $centrale->adresse = request('adresse');
         $centrale->description = request('description');
         $centrale->type = request('type');
         $centrale->subtype = request('subtype');
-
         $centrale->user()->associate($centraleUser);
         $centrale->save();
 
@@ -65,10 +67,14 @@ class AdminRoleController extends Controller
      */
     public function downloadReport(Request $request)
     {
-        $user = Auth::user();
-        if (!isset($user) || strcasecmp($user->role, "admin") != 0) return response()->json(['error' => 'Unauthorised'], 401);
+//        Log::debug("Start ".microtime());
+        if (!($user = $this->checkPermission())) return response()->json(['error' => 'Unauthorised'], 401);
+        $res = Excel::download(new ProductionExports, 'productions.xlsx');
 
-        return Excel::download(new ProductionExports, 'productions.xlsx');
+//        Log::debug("Finish ".microtime());
+
+
+        return $res;
     }
 
     /**
@@ -79,8 +85,8 @@ class AdminRoleController extends Controller
      */
     public function centrales(Request $request)
     {
-        $user = Auth::user();
-        if (!isset($user) || strcasecmp($user->role, "admin") != 0) return response()->json(['error' => 'Unauthorised'], 401);
+        if (!($user = $this->checkPermission())) return response()->json(['error' => 'Unauthorised'], 401);
+
         $res = array();
         $type = request('type');
         if (isset($type)) {
@@ -99,8 +105,7 @@ class AdminRoleController extends Controller
      */
     public function getCentraleById($centrale_id)
     {
-        $user = Auth::user();
-        if (!isset($user) || strcasecmp($user->role, "admin") != 0) return response()->json(['error' => 'Unauthorised'], 401);
+        if (!($user = $this->checkPermission())) return response()->json(['error' => 'Unauthorised'], 401);
 
         $res = array();
         $centrale = Centrale::find($centrale_id);
@@ -120,8 +125,7 @@ class AdminRoleController extends Controller
      */
     public function updateCentraleById(Request $request,$centrale_id)
     {
-        $user = Auth::user();
-        if (!isset($user) || strcasecmp($user->role, "admin") != 0) return response()->json(['error' => 'Unauthorised'], 401);
+        if (!($user = $this->checkPermission())) return response()->json(['error' => 'Unauthorised'], 401);
 
         $validator = Validator::make($request->all(), [
             'password' => 'required',

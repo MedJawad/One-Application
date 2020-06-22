@@ -44,7 +44,6 @@ class Production extends Model
      */
     public function productionable()
     {
-//        return $this->belongsTo('App\BarrageInfos','barrage_infos_id');
         return $this->morphTo();
     }
 

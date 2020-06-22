@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Traits\HasCentrale;
+use App\Traits\HasProductions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -45,6 +47,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BarrageInfos extends Model
 {
+    use HasProductions,HasCentrale;
     protected $table = "barrage_infos";
     /**
      * The attributes that are mass assignable.
@@ -55,18 +58,4 @@ class BarrageInfos extends Model
         'horaire','date','cote','cote2','volume_pompe', 'turbine', 'irrigation','lache','production_totale_brut','production_totale_net'
     ];
 
-    /**
-     * Get the centrale that owns these infos
-     */
-    public function centrale()
-    {
-        return $this->belongsTo('App\Centrale');
-    }
-    /**
-     * Get the list of productions inserted for this CentraleInfos
-     */
-    public function productions()
-    {
-        return $this->morphMany('App\Production','productionable');
-    }
 }

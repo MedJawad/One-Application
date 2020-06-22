@@ -9,6 +9,7 @@ import BarrageForm from "./forms/BarrageForm";
 import FormChoose from "./FormChoose";
 import CycleCombineForm from "./forms/CycleCombineForm";
 import ThermiqueCharbonForm from "./forms/ThermiqueCharbonForm";
+import ProductionsForm from "./forms/ProductionsForm";
 
 const EditReport = props => {
     const [error, setError] = useState("");
@@ -96,6 +97,8 @@ const EditReport = props => {
                 setLoaded(true);
             });
     };
+    // console.log("EDIT REPORT");
+
     return (
         <div className="content">
             <Container>
@@ -127,19 +130,19 @@ const EditReport = props => {
                                             handleFormSubmit={handleFormSubmit}
                                         />
                                     ) : selectedCentrale.type === "Eolien" ? (
-                                        <FormChoose
+                                        <ProductionsForm
                                             setLoaded={setLoaded}
                                             setSubmittedCorrectly={setSubmitted}
                                             selectedCentrale={selectedCentrale}
                                             handleFormSubmit={handleFormSubmit}
                                         />
                                     ) : selectedCentrale.type === "Solaire" ? (
-                                        <FormChoose
+                                        <ProductionsForm
                                             setLoaded={setLoaded}
                                             setSubmittedCorrectly={setSubmitted}
-                                            horaire={
-                                                selectedCentrale.horaire || ""
-                                            }
+                                            // horaire={
+                                            //     selectedCentrale.horaire || ""
+                                            // }
                                             handleFormSubmit={handleFormSubmit}
                                             selectedCentrale={selectedCentrale}
                                         />

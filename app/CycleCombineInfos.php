@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Traits\HasCentrale;
+use App\Traits\HasProductions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -33,23 +35,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CycleCombineInfos extends Model
 {
+    use HasProductions,HasCentrale;
+
     protected $table = "cycle_combine_infos";
     protected $fillable = [
         'horaire','date','production_totale_brut','production_totale_net'
     ];
 
-    /**
-     * Get the centrale that owns these infos
-     */
-    public function centrale()
-    {
-        return $this->belongsTo('App\Centrale');
-    }
-    /**
-     * Get the list of productions inserted for this CentraleInfos
-     */
-    public function productions()
-    {
-        return $this->morphMany('App\Production','productionable');
-    }
 }
