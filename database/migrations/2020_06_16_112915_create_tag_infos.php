@@ -15,10 +15,20 @@ class CreateTagInfos extends Migration
     {
         Schema::create('tag_infos', function (Blueprint $table) {
             $table->id();
-            $table->enum('horaire',['7','13','21','24'])->nullable(true);
+            $table->enum('horaire', ['7', '13', '21', '24'])->nullable(true);
             $table->date('date')->default(date('Y-m-d'));
-            $table->double('production_totale_brut',15,4)->nullable(true)->default(0);
-            $table->double('production_totale_net',15,4)->nullable(true)->default(0);
+            $table->double('production_totale_brut', 15, 4)->nullable(true)->default(0);
+            $table->double('production_totale_net', 15, 4)->nullable(true)->default(0);
+            $table->double('production_gazoil', 15, 4)->nullable(true)->default(0);
+            $table->double('livraison_fioul', 15, 4)->nullable(true)->default(0);
+            $table->double('consommation_fioul', 15, 4)->nullable(true)->default(0);
+            $table->double('transfert_fioul', 15, 4)->nullable(true)->default(0);
+            $table->double('livraison_gazoil', 15, 4)->nullable(true)->default(0);
+            $table->double('consommation_gazoil', 15, 4)->nullable(true)->default(0);
+            $table->double('transfert_gazoil', 15, 4)->nullable(true)->default(0);
+            $table->double('livraison_charbon', 15, 4)->nullable(true)->default(0);
+            $table->double('consommation_charbon', 15, 4)->nullable(true)->default(0);
+            $table->double('transfert_charbon', 15, 4)->nullable(true)->default(0);
             $table->unsignedBigInteger('centrale_id');//->nullable(true);
             $table->foreign('centrale_id')->references('id')->on('centrales');
 

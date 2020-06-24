@@ -65,6 +65,8 @@ class Centrale extends Model
                 return $this->hasMany('App\CycleCombineInfos');
             case "turbine a gaz":
                 return $this->hasMany('App\TAGInfos');
+            case "interconnexion":
+                return $this->hasMany('App\InterconnexionInfos');
         }
     }
 

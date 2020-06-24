@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\SolaireInfos whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\SolaireInfos whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Production[] $productions
+ * @property-read int|null $productions_count
  */
 class SolaireInfos extends Model
 {

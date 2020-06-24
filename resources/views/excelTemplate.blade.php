@@ -66,6 +66,23 @@
                             @foreach($content as $value)
                                 <td style="background-color: #00ffff;color: #ff3b30;border : 1px solid black;text-align: center;">{{$value}}</td>
                             @endforeach
+                            @foreach($inters as $nom=>$inter)
+                                @if(isset($inters[$nom][$key]))
+                                    <td style="background-color: #00ffff;color: #ff3b30;border : 1px solid black;text-align: center;">{{$inters[$nom][$key]["recu"]}}</td>
+                                    <td style="background-color: #00ffff;color: #ff3b30;border : 1px solid black;text-align: center;">{{$inters[$nom][$key]["fourni"]}}</td>
+                                    <td style="background-color: #00ffff;color: #ff3b30;border : 1px solid black;text-align: center;">{{$inters[$nom][$key]["recu"] - $inters[$nom][$key]["fourni"]}}</td>
+                                @else
+                                    <td style="background-color: #00ffff;color: #ff3b30;border : 1px solid black;text-align: center;">
+                                        0
+                                    </td>
+                                    <td style="background-color: #00ffff;color: #ff3b30;border : 1px solid black;text-align: center;">
+                                        0
+                                    </td>
+                                    <td style="background-color: #00ffff;color: #ff3b30;border : 1px solid black;text-align: center;">
+                                        0
+                                    </td>
+                                @endif
+                            @endforeach
                         </tr>
                     @endif
 

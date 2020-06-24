@@ -2,24 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ae65ad3-ca20-43fc-b5fe-e7c34ac618e9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Traits/HasCentrale.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Traits/HasPrevisions.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Traits/HasProductions.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/old.excel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fadb3b6b-b8c3-4f60-afac-7188a1472dc1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fadb3b6b-b8c3-4f60-afac-7188a1472dc1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/BarrageInfos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/BarrageInfos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/CycleCombineInfos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/CycleCombineInfos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Centrale.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Centrale.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/EolienInfos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/EolienInfos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminRoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminRoleController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductionExports.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductionExports.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserRoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserRoleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Production.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Production.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/SolaireInfos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/SolaireInfos.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/TACInfos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/TACInfos.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/TAGInfos.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/TAGInfos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_05_140409_create_centrales_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_05_140409_create_centrales_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_15_210654_create_tac_infos_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_15_210654_create_tac_infos_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_06_16_112915_create_tag_infos.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_06_16_112915_create_tag_infos.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/CentraleSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/CentraleSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/views/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/admin/DownloadReport.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/admin/DownloadReport.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/admin/EditCentrale.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/admin/EditCentrale.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/src/views/user/EditReport.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/user/EditReport.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/views/user/forms/ProductionsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/user/forms/ProductionsForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/user/NewReport.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/user/NewReport.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/user/forms/ThermiqueCharbonForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/user/forms/ThermiqueCharbonForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/excelTemplate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/excelTemplate.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +69,14 @@
         <item name="one@192.168.10.10" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="one: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="eolien_infos: table" type="285a2a93:MysqlImplModel$Table" />
+        <item name="centrales: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="one@192.168.10.10" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="one: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="interconnexion_infos: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -223,22 +235,23 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Homestead_Projects\One\resources" />
-      <recent name="C:\Homestead_Projects\One\resources\js\src" />
-      <recent name="C:\Homestead_Projects\One\app\Http\Controllers" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Homestead_Projects\One\app\Traits" />
       <recent name="C:\Homestead_Projects\One\public" />
       <recent name="C:\Homestead_Projects\One\resources\img" />
       <recent name="C:\Homestead_Projects\One\resources\js\src\assets" />
       <recent name="C:\Homestead_Projects\One\resources\js\src" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Homestead_Projects\One\resources\views" />
+      <recent name="C:\Homestead_Projects\One\resources" />
+      <recent name="C:\Homestead_Projects\One\resources\js\src" />
+      <recent name="C:\Homestead_Projects\One\app\Http\Controllers" />
     </key>
   </component>
   <component name="RunManager">
@@ -287,7 +300,12 @@
       <workItem from="1592735960271" duration="10816000" />
       <workItem from="1592766567634" duration="10475000" />
       <workItem from="1592821966596" duration="2853000" />
-      <workItem from="1592848164583" duration="2487000" />
+      <workItem from="1592848164583" duration="2561000" />
+      <workItem from="1592950218415" duration="3182000" />
+      <workItem from="1592993237971" duration="1175000" />
+      <workItem from="1592994944862" duration="21987000" />
+      <workItem from="1593021285434" duration="583000" />
+      <workItem from="1593031838374" duration="6284000" />
     </task>
     <servers />
   </component>
@@ -311,10 +329,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="418" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1591909396279" />
-    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1592823795361">
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1593004039905">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1592823795361" />
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1593004039905" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1592652113160">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -339,14 +357,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="349" y="67" key="com.intellij.database.dbimport.ImportDialog/0.0.1536.824@0.0.1536.824" timestamp="1592214101193" />
-    <state x="453" y="0" width="629" height="824" key="find.popup" timestamp="1592037920150">
+    <state x="453" y="0" width="629" height="824" key="find.popup" timestamp="1593000362762">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="453" y="0" width="629" height="824" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1592037920150" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1592475374236">
+    <state x="453" y="0" width="629" height="824" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1593000362762" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1593016244652">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1592475374236" />
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1593016244652" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1592168166099">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

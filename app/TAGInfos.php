@@ -14,6 +14,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $date
  * @property float|null $production_totale_brut
  * @property float|null $production_totale_net
+ * @property float|null $production_gazoil
+ * @property float|null $livraison_fioul
+ * @property float|null $consommation_fioul
+ * @property float|null $transfert_fioul
+ * @property float|null $livraison_gazoil
+ * @property float|null $consommation_gazoil
+ * @property float|null $transfert_gazoil
+ * @property float|null $livraison_charbon
+ * @property float|null $consommation_charbon
+ * @property float|null $transfert_charbon
  * @property int $centrale_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -39,7 +49,7 @@ class TAGInfos extends Model
 
     protected $table = "tag_infos";
     protected $fillable = [
-        'horaire','date','production_totale_brut','production_totale_net'
+        'horaire','date','production_totale_brut','production_totale_net','production_gazoil','livraison_fioul','consommation_fioul','transfert_fioul','livraison_gazoil','consommation_gazoil','transfert_gazoil','livraison_charbon','consommation_charbon','transfert_charbon'
     ];
 
 }

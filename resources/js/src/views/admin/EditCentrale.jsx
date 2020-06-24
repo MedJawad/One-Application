@@ -125,7 +125,7 @@ const EditCentrale = props => {
                                                     <option value="Cycle Combine">
                                                         Cycle Combiné
                                                     </option>
-                                                    <option value="Interconnexions">
+                                                    <option value="Interconnexion">
                                                         Interconnexion
                                                     </option>
                                                 </Form.Control>

@@ -4,9 +4,10 @@ import {
     FaSolarPanel,
     FaThermometerHalf,
     FaDownload,
-    FaFolder
+    FaFolder,
+    FaGasPump
 } from "react-icons/fa";
-import { GiPaperWindmill } from "react-icons/gi";
+import { GiPaperWindmill, GiCrossedSwords, GiSplitCross } from "react-icons/gi";
 import { MdCreateNewFolder } from "react-icons/md";
 import NewReport from "./views/user/NewReport.jsx";
 import NewCentrale from "./views/admin/NewCentrale";
@@ -94,12 +95,26 @@ export const adminRoutes = [
         render: props => <CentralesList {...props} type={"cycle combine"} />
     },
     {
-        path: "/admin/thermiques",
-        name: "C.Thermiques",
+        path: "/admin/charbon",
+        name: "Th.Charbon",
         icon: <FaThermometerHalf size={30} />, // "pe-7s-diskette",
         // component: CentralesList,
         render: props => (
             <CentralesList {...props} type={"thermique a charbon"} />
         )
+    },
+    {
+        path: "/admin/gaz",
+        name: "T.A.G",
+        icon: <FaGasPump size={30} />, // "pe-7s-diskette",
+        // component: CentralesList,
+        render: props => <CentralesList {...props} type={"turbine a gaz"} />
+    },
+    {
+        path: "/admin/interconnexions",
+        name: "Interconnexions",
+        icon: <GiSplitCross size={30} />, // "pe-7s-diskette",
+        // component: CentralesList,
+        render: props => <CentralesList {...props} type={"interconnexion"} />
     }
 ];

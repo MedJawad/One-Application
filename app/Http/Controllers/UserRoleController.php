@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\BarrageInfos;
 use App\Centrale;
 use App\CycleCombineInfos;
+use App\EchangeEnergie;
 use App\EolienInfos;
+use App\InterconnexionInfos;
 use App\Prevision;
 use App\Production;
 use App\SolaireInfos;
@@ -132,7 +134,14 @@ class UserRoleController extends Controller
                     $infos = new BarrageInfos();
                     $infos->horaire = $data["horaire"];
                     $infos->date = $data["date"];
-                    $this->fillBarrageInfosFromData($infos,$data);
+                    $infos->cote = $data["cote"];
+                    $infos->cote2 = $data["cote2"];
+                    $infos->turbine = $data["turbine"];
+                    $infos->irrigation = $data["irrigation"];
+                    $infos->lache = $data["lache"];
+                    $infos->production_totale_brut = $data["production_totale_brut"];
+                    $infos->production_totale_net = $data["production_totale_net"];
+                    $infos->volume_pompe = $data["volume_pompe"];
                     $infos->centrale()->associate($user->centrale->id);
                     $infos->save();
 
@@ -186,6 +195,7 @@ class UserRoleController extends Controller
                     $infos->autonomie_charbon = $data["autonomie_charbon"];
                     $infos->production_totale_brut = $data["production_totale_brut"];
                     $infos->production_totale_net = $data["production_totale_net"];
+                    $infos->index = $data["index"];
                     $infos->centrale()->associate($user->centrale->id);
                     $infos->save();
 
@@ -213,6 +223,59 @@ class UserRoleController extends Controller
                         $prod->horaire = $key;
                         $prod->value = $value;
                         $prod->productionable()->associate($infos);
+                        $prod->save();
+                    }
+                    break;
+                }
+                case "Turbine a gaz":
+                {
+                    $infos = new TAGInfos();
+                    $infos->horaire = $data["horaire"];
+                    $infos->date = $data["date"];
+                    $infos->production_totale_brut = $data["production_totale_brut"];
+                    $infos->production_totale_net = $data["production_totale_net"];
+                    $infos->production_gazoil = $data["production_gazoil"];
+
+                    $infos->livraison_charbon = $data["livraison_charbon"];
+                    $infos->consommation_charbon = $data["consommation_charbon"];
+                    $infos->transfert_charbon = $data["transfert_charbon"];
+
+                    $infos->livraison_fioul = $data["livraison_fioul"];
+                    $infos->consommation_fioul = $data["consommation_fioul"];
+                    $infos->transfert_fioul = $data["transfert_fioul"];
+
+                    $infos->livraison_gazoil = $data["livraison_gazoil"];
+                    $infos->consommation_gazoil = $data["consommation_gazoil"];
+                    $infos->transfert_gazoil = $data["transfert_gazoil"];
+
+                    $infos->centrale()->associate($user->centrale->id);
+                    $infos->save();
+
+                    foreach ($data['productions'] as $key => $value) {
+                        $prod = new Production;
+                        $prod->horaire = $key;
+                        $prod->value = $value;
+                        $prod->productionable()->associate($infos);
+                        $prod->save();
+                    }
+                    break;
+                }
+                case "Interconnexion":
+                {
+                    $infos = new InterconnexionInfos();
+                    $infos->horaire = $data["horaire"];
+                    $infos->date = $data["date"];
+                    $infos->production_totale_recu = $data["production_totale_recu"];
+                    $infos->production_totale_fourni = $data["production_totale_fourni"];
+                    $infos->centrale()->associate($user->centrale->id);
+                    $infos->save();
+
+                    foreach ($data['productions'] as $key => $values) {
+                        $prod = new EchangeEnergie;
+                        $prod->horaire = $key;
+                        $prod->recu = $values["recu"];
+                        $prod->fourni = $values["fourni"];
+                        $prod->infos()->associate($infos);
                         $prod->save();
                     }
                     break;
@@ -278,18 +341,6 @@ class UserRoleController extends Controller
         return response()->json($response, $this->successStatus);
     }
 
-    private function fillBarrageInfosFromData($infos,$data)
-    {
-        $infos->cote = $data["cote"];
-        $infos->cote2 = $data["cote2"];
-        $infos->turbine = $data["turbine"];
-        $infos->irrigation = $data["irrigation"];
-        $infos->lache = $data["lache"];
-        $infos->production_totale_brut = $data["production_totale_brut"];
-        $infos->production_totale_net = $data["production_totale_net"];
-        $infos->volume_pompe = $data["volume_pompe"];
-        return $infos;
-    }
     /**
      *
      * @param Request $request
@@ -308,7 +359,14 @@ class UserRoleController extends Controller
             switch ($user->centrale->type) {
                 case "Barrage":
                 {
-                    $this->fillBarrageInfosFromData($infos,$data);
+                    $infos->cote = $data["cote"];
+                    $infos->cote2 = $data["cote2"];
+                    $infos->turbine = $data["turbine"];
+                    $infos->irrigation = $data["irrigation"];
+                    $infos->lache = $data["lache"];
+                    $infos->production_totale_brut = $data["production_totale_brut"];
+                    $infos->production_totale_net = $data["production_totale_net"];
+                    $infos->volume_pompe = $data["volume_pompe"];
                     $infos->save();
                     foreach ($data['productions'] as $key => $value) {
                         $prod = $infos->productions->where('horaire', $key)->first();
@@ -347,6 +405,7 @@ class UserRoleController extends Controller
                     $infos->autonomie_charbon = $data["autonomie_charbon"];
                     $infos->production_totale_brut = $data["production_totale_brut"];
                     $infos->production_totale_net = $data["production_totale_net"];
+                    $infos->index = $data["index"];
                     $infos->save();
 
                     foreach ($data['productions'] as $key => $value) {
@@ -364,6 +423,46 @@ class UserRoleController extends Controller
                     foreach ($data['productions'] as $key => $value) {
                         $prod = $infos->productions->where('horaire', $key)->first();
                         $prod->value = $value;
+                        $prod->save();
+                    }
+                    break;
+                }
+                case "Turbine a gaz":
+                {
+                    $infos->production_totale_brut = $data["production_totale_brut"];
+                    $infos->production_totale_net = $data["production_totale_net"];
+                    $infos->production_gazoil = $data["production_gazoil"];
+
+                    $infos->livraison_charbon = $data["livraison_charbon"];
+                    $infos->consommation_charbon = $data["consommation_charbon"];
+                    $infos->transfert_charbon = $data["transfert_charbon"];
+
+                    $infos->livraison_fioul = $data["livraison_fioul"];
+                    $infos->consommation_fioul = $data["consommation_fioul"];
+                    $infos->transfert_fioul = $data["transfert_fioul"];
+
+                    $infos->livraison_gazoil = $data["livraison_gazoil"];
+                    $infos->consommation_gazoil = $data["consommation_gazoil"];
+                    $infos->transfert_gazoil = $data["transfert_gazoil"];
+                    $infos->save();
+
+                    foreach ($data['productions'] as $key => $value) {
+                        $prod = $infos->productions->where('horaire', $key)->first();
+                        $prod->value = $value;
+                        $prod->save();
+                    }
+                    break;
+                }
+                case "Interconnexion":
+                {
+                    $infos->production_totale_recu = $data["production_totale_recu"];
+                    $infos->production_totale_fourni = $data["production_totale_fourni"];
+                    $infos->save();
+
+                    foreach ($data['productions'] as $key => $values) {
+                        $prod = $infos->echanges->where('horaire', $key)->first();
+                        $prod->recu = $values["recu"];
+                        $prod->fourni = $values["fourni"];
                         $prod->save();
                     }
                     break;

@@ -15,6 +15,7 @@ const ThermiqueCharbonForm = ({
         autonomie_charbon: 0,
         production_totale_brut: 0,
         production_totale_net: 0,
+        index: 0,
         productions: {}
     });
     useEffect(() => {
@@ -195,6 +196,27 @@ const ThermiqueCharbonForm = ({
                                 setFormData({
                                     ...formData,
                                     production_totale_net: target.value
+                                });
+                            }}
+                        />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label>Index à 24H</Form.Label>
+                        <Form.Control
+                            type="number"
+                            placeholder="Production Totale Net"
+                            value={formData.index}
+                            onChange={({ target }) => {
+                                if (
+                                    Number(target.value) < 0 ||
+                                    isNaN(target.value) ||
+                                    target.value.length === 0
+                                ) {
+                                    return;
+                                }
+                                setFormData({
+                                    ...formData,
+                                    index: target.value
                                 });
                             }}
                         />

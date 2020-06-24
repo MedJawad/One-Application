@@ -10,6 +10,8 @@ import FormChoose from "./FormChoose";
 import CycleCombineForm from "./forms/CycleCombineForm";
 import ThermiqueCharbonForm from "./forms/ThermiqueCharbonForm";
 import ProductionsForm from "./forms/ProductionsForm";
+import InterconnexionForm from "./forms/InterconnexionForm";
+import TurbineGazForm from "./forms/TurbineGazForm";
 
 const EditReport = props => {
     const [error, setError] = useState("");
@@ -161,6 +163,22 @@ const EditReport = props => {
                                             setSubmittedCorrectly={setSubmitted}
                                             handleFormSubmit={handleFormSubmit}
                                             selectedCentrale={selectedCentrale}
+                                        />
+                                    ) : selectedCentrale.type ===
+                                      "Turbine a gaz" ? (
+                                        <TurbineGazForm
+                                            setLoaded={setLoaded}
+                                            setSubmittedCorrectly={setSubmitted}
+                                            selectedCentrale={selectedCentrale}
+                                            handleFormSubmit={handleFormSubmit}
+                                        />
+                                    ) : selectedCentrale.type ===
+                                      "Interconnexion" ? (
+                                        <InterconnexionForm
+                                            setLoaded={setLoaded}
+                                            setSubmittedCorrectly={setSubmitted}
+                                            selectedCentrale={selectedCentrale}
+                                            handleFormSubmit={handleFormSubmit}
                                         />
                                     ) : (
                                         <h3>Invalid Centrale Type</h3>

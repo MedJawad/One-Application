@@ -29,8 +29,8 @@ function DownloadReport() {
                 fileDownload(res.data, "report.xlsx");
                 return res;
             })
+            .catch(err => console.log(err))
             .then(() => setLoaded(true));
-        // .catch((err) => console.log(err))
         // .then(() => setLoaded(true));
     };
 

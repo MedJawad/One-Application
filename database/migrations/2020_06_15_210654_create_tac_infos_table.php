@@ -20,6 +20,7 @@ class CreateTacInfosTable extends Migration
             $table->double('autonomie_charbon',15,4)->nullable(true)->default(0);
             $table->double('production_totale_brut',15,4)->nullable(true)->default(0);
             $table->double('production_totale_net',15,4)->nullable(true)->default(0);
+            $table->double('index',15,4)->nullable(true)->default(0);
             $table->unsignedBigInteger('centrale_id');//->nullable(true);
             $table->foreign('centrale_id')->references('id')->on('centrales');
 

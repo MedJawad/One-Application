@@ -10,6 +10,8 @@ import ThermiqueCharbonForm from "./forms/ThermiqueCharbonForm";
 import CycleCombineForm from "./forms/CycleCombineForm";
 
 import FormChoose from "./FormChoose";
+import InterconnexionForm from "./forms/InterconnexionForm";
+import TurbineGazForm from "./forms/TurbineGazForm";
 
 function NewReport() {
     const [error, setError] = useState("");
@@ -132,6 +134,22 @@ function NewReport() {
                                     ) : selectedCentrale.type ===
                                       "Thermique a charbon" ? (
                                         <ThermiqueCharbonForm
+                                            setLoaded={setLoaded}
+                                            setSubmittedCorrectly={setSubmitted}
+                                            selectedCentrale={selectedCentrale}
+                                            handleFormSubmit={handleFormSubmit}
+                                        />
+                                    ) : selectedCentrale.type ===
+                                      "Turbine a gaz" ? (
+                                        <TurbineGazForm
+                                            setLoaded={setLoaded}
+                                            setSubmittedCorrectly={setSubmitted}
+                                            selectedCentrale={selectedCentrale}
+                                            handleFormSubmit={handleFormSubmit}
+                                        />
+                                    ) : selectedCentrale.type ===
+                                      "Interconnexion" ? (
+                                        <InterconnexionForm
                                             setLoaded={setLoaded}
                                             setSubmittedCorrectly={setSubmitted}
                                             selectedCentrale={selectedCentrale}

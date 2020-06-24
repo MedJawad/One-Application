@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Route::get('/', function () {
-//    return view('welcome');
+//    return (new \App\Http\Controllers\ProductionExports())->test2();
+////    return (new \App\Http\Controllers\ProductionExports())->view();
 //});
 //
 //Auth::routes();
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::view('/{path?}', 'app');
-//Route::view('/*','app');
+//Route::view('/','excel');
 Route::get('{any}', function () {
     return view('app'); // or wherever your React app is bootstrapped.
 })->where('any', '.*');

@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\TACInfos whereProductionTotaleNet($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\TACInfos whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property float|null $index
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\TACInfos whereIndex($value)
  */
 class TACInfos extends Model
 {
@@ -41,7 +43,7 @@ class TACInfos extends Model
 
     protected $table = "tac_infos";
     protected $fillable = [
-        'horaire','date','autonomie_charbon','production_totale_brut','production_totale_net'
+        'horaire','date','autonomie_charbon','production_totale_brut','production_totale_net','index'
     ];
 
 }
