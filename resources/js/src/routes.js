@@ -52,13 +52,13 @@ export const pchRoutes = [
     }
 ];
 export const adminRoutes = [
-    {
-        path: "/admin/newCentrale",
-        name: "Nouvelle Centrale",
-        icon: <MdCreateNewFolder size={30} />, //"pe-7s-note2",
-        // component: NewCentrale,
-        render: props => <NewCentrale {...props} />
-    },
+    // {
+    //     path: "/admin/newCentrale",
+    //     name: "Nouvelle Centrale",
+    //     icon: <MdCreateNewFolder size={30} />, //"pe-7s-note2",
+    //     // component: NewCentrale,
+    //     render: props => <NewCentrale {...props} />
+    // },
     {
         path: "/admin/getReport",
         name: "Telecharger Rapport",

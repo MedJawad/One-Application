@@ -34,7 +34,7 @@ class CentraleSeeder extends Seeder
             ['nom' => "EL BORJ 1766", 'subtype' => '-cote'],
             ['nom' => 'IMF 1732', 'subtype' => 'onlyVolumePompe'],
             ['nom' => 'DA 1733', 'subtype' => 'onlyVolumePompe'],
-            ['nom' => ' Mâac', 'subtype' => 'onlyVolumePompe'],
+            ['nom' => 'Mâac', 'subtype' => 'onlyVolumePompe'],
             ['nom' => 'STEP Turbinée 1776-1777', 'subtype' => 'onlyProductionCote'],
             ['nom' => 'STEP Pompée', 'subtype' => 'onlyProductionCote'],
         ];
@@ -49,7 +49,14 @@ class CentraleSeeder extends Seeder
             ['nom' => 'SAFIEC 2', 'subtype' => '-autonomie'],
         ];
         $cc = [['nom' => 'EET', 'subtype' => 'normal'], ['nom' => 'ABM', 'subtype' => 'normal']];
-        $solaires = [['nom' => 'NOOR 1', 'subtype' => 'normal'], ['nom' => 'NOOR 2', 'subtype' => 'normal'], ['nom' => 'NOOR 3', 'subtype' => 'normal'], ['nom' => 'NOOR 4', 'subtype' => 'normal'], ['nom' => 'PV LAAYOUN', 'subtype' => 'normal'], ['nom' => 'PV BOUJDOUR', 'subtype' => 'normal']];
+        $solaires = [
+            ['nom' => 'NOOR 1', 'subtype' => 'normal'],
+            ['nom' => 'NOOR 2', 'subtype' => 'normal'],
+            ['nom' => 'NOOR 3', 'subtype' => 'normal'],
+            ['nom' => 'NOOR 4', 'subtype' => 'normal'],
+            ['nom' => 'PV LAAYOUN', 'subtype' => 'normal'],
+            //['nom' => 'PV BOUJDOUR', 'subtype' => 'normal']
+        ];
         $eoliens = [
             ['nom' => "EOL AMOU 1762", 'subtype' => 'normal'],
             ['nom' => 'CED', 'subtype' => 'normal'],

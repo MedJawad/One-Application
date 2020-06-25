@@ -16,7 +16,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <table class="table table-bordered" style="border : 1px solid black ">
+            <table border="1" style="border : 1px solid black ">
                 <tr>
                     <td></td>
                 </tr>
@@ -51,7 +51,7 @@
                 @for($i=1;$i<=24;$i++)
                     <tr>
                         <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">{{$i.'H'}}</th>
-                        @foreach($barrages as $centrale)
+                        @foreach($barragesProd as $centrale)
                             @if(isset($centrale[$i.'H']))
                                 <td>
                                     {{$centrale[$i.'H']}}
@@ -61,7 +61,7 @@
                             @endif
                         @endforeach
                         <td>0</td>
-                        @foreach($turbines as $centrale)
+                        @foreach($turbinesProd as $centrale)
                             @if(isset($centrale[$i.'H']))
                                 <td>
                                     {{$centrale[$i.'H']}}
@@ -71,7 +71,7 @@
                             @endif
                         @endforeach
                         <td>0</td>
-                        @foreach($eoliens as $centrale)
+                        @foreach($eoliensProd as $centrale)
                             @if(isset($centrale[$i.'H']))
                                 <td>
                                     {{$centrale[$i.'H']}}
@@ -81,7 +81,7 @@
                             @endif
                         @endforeach
                         <td>0</td>
-                        @foreach($thermiques as $centrale)
+                        @foreach($thermiquesProd as $centrale)
                             @if(isset($centrale[$i.'H']))
                                 <td>
                                     {{$centrale[$i.'H']}}
@@ -90,7 +90,7 @@
                                 <td>0</td>
                             @endif
                         @endforeach
-                        @foreach($cycles as $centrale)
+                        @foreach($cyclesProd as $centrale)
                             @if(isset($centrale[$i.'H']))
                                 <td>
                                     {{$centrale[$i.'H']}}
@@ -99,7 +99,7 @@
                                 <td>0</td>
                             @endif
                         @endforeach
-                        @foreach($solaires as $centrale)
+                        @foreach($solairesProd as $centrale)
                             @if(isset($centrale[$i.'H']))
                                 <td>
                                     {{$centrale[$i.'H']}}
@@ -109,7 +109,7 @@
                             @endif
                         @endforeach
                         <td>0</td>
-                        @foreach($inters as $centrale)
+                        @foreach($intersProd as $centrale)
                             @if(isset($centrale[$i.'H']))
                                 <td>
                                     {{$centrale[$i.'H']["recu"]}}
@@ -129,8 +129,10 @@
                     </tr>
                 @endfor
                 <tr>
-                    <th>Brut</th>
-                    @foreach($barrages as $centrale)
+                    <th style="background-color: #ffc90b;color: #ff3b30;border : 1px solid black;text-align: center;">
+                        Brut
+                    </th>
+                    @foreach($barragesProd as $centrale)
                         @if(isset($centrale['Brut']))
                             <td>
                                 {{$centrale['Brut']}}
@@ -140,7 +142,7 @@
                         @endif
                     @endforeach
                     <td>0</td>
-                    @foreach($turbines as $centrale)
+                    @foreach($turbinesProd as $centrale)
                         @if(isset($centrale['Brut']))
                             <td>
                                 {{$centrale['Brut']}}
@@ -150,7 +152,7 @@
                         @endif
                     @endforeach
                     <td>0</td>
-                    @foreach($eoliens as $centrale)
+                    @foreach($eoliensProd as $centrale)
                         @if(isset($centrale['Brut']))
                             <td>
                                 {{$centrale['Brut']}}
@@ -160,7 +162,7 @@
                         @endif
                     @endforeach
                     <td>0</td>
-                    @foreach($thermiques as $centrale)
+                    @foreach($thermiquesProd as $centrale)
                         @if(isset($centrale['Brut']))
                             <td>
                                 {{$centrale['Brut']}}
@@ -169,7 +171,7 @@
                             <td>0</td>
                         @endif
                     @endforeach
-                    @foreach($cycles as $centrale)
+                    @foreach($cyclesProd as $centrale)
                         @if(isset($centrale['Brut']))
                             <td>
                                 {{$centrale['Brut']}}
@@ -178,7 +180,7 @@
                             <td>0</td>
                         @endif
                     @endforeach
-                    @foreach($solaires as $centrale)
+                    @foreach($solairesProd as $centrale)
                         @if(isset($centrale['Brut']))
                             <td>
                                 {{$centrale['Brut']}}
@@ -188,7 +190,7 @@
                         @endif
                     @endforeach
                     <td>0</td>
-                    @foreach($inters as $centrale)
+                    @foreach($intersProd as $centrale)
                         @if(isset($centrale['total']))
                             <td>
                                 {{$centrale['total']["recu"]}}
@@ -207,8 +209,10 @@
                     @endforeach
                 </tr>
                 <tr>
-                    <th>Net</th>
-                    @foreach($barrages as $centrale)
+                    <th style="background-color: #ffc90b;color: #ff3b30;border : 1px solid black;text-align: center;">
+                        Net
+                    </th>
+                    @foreach($barragesProd as $centrale)
                         @if(isset($centrale['Net']))
                             <td>
                                 {{$centrale['Net']}}
@@ -218,7 +222,7 @@
                         @endif
                     @endforeach
                     <td>0</td>
-                    @foreach($turbines as $centrale)
+                    @foreach($turbinesProd as $centrale)
                         @if(isset($centrale['Net']))
                             <td>
                                 {{$centrale['Net']}}
@@ -228,7 +232,7 @@
                         @endif
                     @endforeach
                     <td>0</td>
-                    @foreach($eoliens as $centrale)
+                    @foreach($eoliensProd as $centrale)
                         @if(isset($centrale['Net']))
                             <td>
                                 {{$centrale['Net']}}
@@ -238,7 +242,7 @@
                         @endif
                     @endforeach
                     <td>0</td>
-                    @foreach($thermiques as $centrale)
+                    @foreach($thermiquesProd as $centrale)
                         @if(isset($centrale['Net']))
                             <td>
                                 {{$centrale['Net']}}
@@ -247,7 +251,7 @@
                             <td>0</td>
                         @endif
                     @endforeach
-                    @foreach($cycles as $centrale)
+                    @foreach($cyclesProd as $centrale)
                         @if(isset($centrale['Net']))
                             <td>
                                 {{$centrale['Net']}}
@@ -256,7 +260,7 @@
                             <td>0</td>
                         @endif
                     @endforeach
-                    @foreach($solaires as $centrale)
+                    @foreach($solairesProd as $centrale)
                         @if(isset($centrale['Net']))
                             <td>
                                 {{$centrale['Net']}}
@@ -266,15 +270,9 @@
                         @endif
                     @endforeach
                     <td>0</td>
-                    @foreach($inters as $centrale)
+                    @foreach($intersProd as $centrale)
                         @if(isset($centrale['total']))
                             <td colspan="3">
-                                {{--                                {{$centrale['total']["recu"]}}--}}
-                                {{--                            </td>--}}
-                                {{--                            <td>--}}
-                                {{--                                {{$centrale['total']["fourni"]}}--}}
-                                {{--                            </td>--}}
-                                {{--                            <td>--}}
                                 {{$centrale['total']["fourni"]-$centrale['total']["recu"]}}
                             </td>
                         @else
@@ -285,6 +283,222 @@
                     @endforeach
                 </tr>
                 </tbody>
+            </table>
+            <table border="1">
+                <tr>
+                    <td></td>
+                    <td colspan="9" style="background-color: #83ff00;color: #ffffff;text-align: center;">Situation
+                        Combustible
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+
+                    <td colspan="3" style="background-color: #ffbd00;color: #ffffff;text-align: center;">Centrale</td>
+                    <td colspan="1" style="background-color: #ffbd00;color: #ffffff;text-align: center;">Stock utile
+                        j-1
+                    </td>
+                    <td colspan="1" style="background-color: #ffbd00;color: #ffffff;text-align: center;">Livraison</td>
+                    <td colspan="1" style="background-color: #ffbd00;color: #ffffff;text-align: center;">Consommation
+                    </td>
+                    <td colspan="1" style="background-color: #ffbd00;color: #ffffff;text-align: center;">Transfert</td>
+                    <td colspan="1" style="background-color: #ffbd00;color: #ffffff;text-align: center;">Stock Utile
+                    </td>
+                    <td colspan="1" style="background-color: #ffbd00;color: #ffffff;text-align: center;">Consom. spec.
+                    </td>
+                    <td colspan="1" style="background-color: #ffbd00;color: #ffffff;text-align: center;">Prod. Gazoil
+                    </td>
+                </tr>
+                @foreach($combustibles as $nom=>$comb)
+                    <tr>
+                        <td></td>
+                        <td>
+                            {{$nom}}
+                        </td>
+                        <td></td>
+                        <td>Fioul</td>
+                        <td>0</td>
+                        <td>{{$comb['livraison_fioul']}}</td>
+                        <td>{{$comb['consommation_fioul']}}</td>
+                        <td>{{$comb['transfert_fioul']}}</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    @if(isset($comb["livraison_charbon"]))
+                        <tr>
+                            <td></td>
+                            <td>
+                            </td>
+                            <td></td>
+                            <td>Charbon</td>
+                            <td>0</td>
+                            <td>{{$comb['livraison_charbon']}}</td>
+                            <td>{{$comb['consommation_charbon']}}</td>
+                            <td>{{$comb['transfert_charbon']}}</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                    @endif
+                    @if(isset($comb["livraison_gazoil"]))
+                        <tr>
+                            <td></td>
+                            <td>
+                            </td>
+                            <td></td>
+                            <td>Gazoil</td>
+                            <td>0</td>
+                            <td>{{$comb['livraison_gazoil']}}</td>
+                            <td>{{$comb['consommation_gazoil']}}</td>
+                            <td>{{$comb['transfert_gazoil']}}</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>{{$comb['production_gazoil']}}</td>
+
+                        </tr>
+                    @endif
+                @endforeach
+            </table>
+            <table border="1">
+                <tr>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Nom
+                    </th>
+                    @foreach($barragesInfos as $nom => $b)
+                        <td colspan="2"
+                            style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">{{$nom}}</td>
+                    @endforeach
+                </tr>
+                <tr>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Turbinage
+                    </th>
+                    @foreach($barragesInfos as $nom => $b)
+                        @if(isset($b['turbine']))
+                            <td colspan="2">{{$b['turbine']}}</td>
+                        @else
+                            <td colspan="2"></td>
+                        @endif
+                    @endforeach
+                </tr>
+                <tr>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Irrigation
+                    </th>
+                    @foreach($barragesInfos as $nom => $b)
+                        @if(isset($b['irrigation']))
+                            <td colspan="2">{{$b['irrigation']}}</td>
+                        @else
+                            <td colspan="2"></td>
+                        @endif
+                    @endforeach
+                </tr>
+                <tr>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Lache
+                    </th>
+                    @foreach($barragesInfos as $nom => $b)
+                        @if(isset($b['lache']))
+                            <td colspan="2">{{$b['lache']}}</td>
+                        @else
+                            <td colspan="2"></td>
+                        @endif
+                    @endforeach
+                </tr>
+                <tr>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Cote à 24H
+                    </th>
+                    @foreach($barragesInfos as $nom => $b)
+                        @if(isset($b['cote2']))
+                            <td colspan="1">{{$b['cote']}}</td>
+                            <td colspan="1">{{$b['cote2']}}</td>
+                        @elseif(isset($b['cote']))
+                            <td colspan="2">{{$b['cote']}}</td>
+                        @else
+                            <td colspan="2"></td>
+                        @endif
+                    @endforeach
+                </tr>
+                <tr></tr>
+                <tr>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Volume Pompe
+                    </th>
+                    @foreach($barragesInfos as $nom => $b)
+                        @if(isset($b['volume_pompe']))
+                            <td colspan="2">{{$b['volume_pompe']}}</td>
+                        @else
+                            <td colspan="2"></td>
+                        @endif
+                    @endforeach
+                </tr>
+            </table>
+
+            <table >
+                <tr>
+                    <th>Nom</th>
+                    @foreach($thermiqueInfos as $nom => $t)
+                        <td>{{$nom}}</td>
+                    @endforeach
+                </tr>
+                <tr>
+                    <th>Autonomie Charbon</th>
+                    @foreach($thermiqueInfos as $nom => $t)
+                        @if(isset($t['autonomie_charbon']))
+                            <td>{{$t['autonomie_charbon']}}</td>
+                        @else
+                            <td></td>
+                        @endif
+                    @endforeach
+                </tr>
+                <tr>
+                    <th>Ancien Index</th>
+                    @foreach($thermiqueInfos as $nom => $t)
+                        @if(isset($t['oldIndex']))
+                            <td>{{$t['oldIndex']}}</td>
+                        @else
+                            <td></td>
+                        @endif
+                    @endforeach
+                </tr>
+                <tr>
+                    <th>Nouveau Index</th>
+                    @foreach($thermiqueInfos as $nom => $t)
+                        @if(isset($t['index']))
+                            <td>{{$t['index']}}</td>
+                        @else
+                            <td></td>
+                        @endif
+                    @endforeach
+                </tr>
+                <tr>
+                    <th>Net</th>
+                    @foreach($thermiqueInfos as $nom => $t)
+                        @if(isset($t['oldIndex']))
+                            <td>{{$t['index'] - $t['oldIndex']}}</td>
+                        @elseif(isset($t['index']))
+                            <td>{{$t['index']}}</td>
+                        @else
+                            <td></td>
+                        @endif
+                    @endforeach
+                </tr>
+                <tr>
+                    <th>Total</th>
+                    <td colspan="6">=SUM(B69;C69;D69;E69;F69;G69)</td>
+                    <td colspan="2">=SUM(H69;I69)</td>
+                </tr>
+                <tr>
+                    <th>Net - Brut en %</th>
+                    <td>=(BD30-B69)/BD30</td>
+                    <td>=(BE30-C69)/BE30</td>
+                    <td>=(BF30-D69)/BE30</td>
+                    <td>=(BG30-E69)/BE30</td>
+                    <td>=(BH30-F69)/BE30</td>
+                    <td>=(BI30-G69)/BE30</td>
+                </tr>
             </table>
         </div>
     </div>

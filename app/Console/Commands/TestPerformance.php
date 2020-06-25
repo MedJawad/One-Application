@@ -49,7 +49,7 @@ class TestPerformance extends Command
 //            $turbines = Centrale::whereType("Turbine a gaz");
 //            $inters = Centrale::whereType("Interconnexion");
 //        (new ProductionExports)->view();
-       $data = (new ProductionExports)->test2();
+//       $data = (new ProductionExports)->test2();
 //        dd($data);
         $time_end1 = microtime(true);
 
