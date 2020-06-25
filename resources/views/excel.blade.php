@@ -438,13 +438,13 @@
 
             <table >
                 <tr>
-                    <th>Nom</th>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Nom</th>
                     @foreach($thermiqueInfos as $nom => $t)
-                        <td>{{$nom}}</td>
+                        <td  style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">{{$nom}}</td>
                     @endforeach
                 </tr>
                 <tr>
-                    <th>Autonomie Charbon</th>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Autonomie Charbon</th>
                     @foreach($thermiqueInfos as $nom => $t)
                         @if(isset($t['autonomie_charbon']))
                             <td>{{$t['autonomie_charbon']}}</td>
@@ -454,7 +454,7 @@
                     @endforeach
                 </tr>
                 <tr>
-                    <th>Ancien Index</th>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Ancien Index</th>
                     @foreach($thermiqueInfos as $nom => $t)
                         @if(isset($t['oldIndex']))
                             <td>{{$t['oldIndex']}}</td>
@@ -464,7 +464,7 @@
                     @endforeach
                 </tr>
                 <tr>
-                    <th>Nouveau Index</th>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Nouveau Index</th>
                     @foreach($thermiqueInfos as $nom => $t)
                         @if(isset($t['index']))
                             <td>{{$t['index']}}</td>
@@ -474,7 +474,7 @@
                     @endforeach
                 </tr>
                 <tr>
-                    <th>Net</th>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Net</th>
                     @foreach($thermiqueInfos as $nom => $t)
                         @if(isset($t['oldIndex']))
                             <td>{{$t['index'] - $t['oldIndex']}}</td>
@@ -486,18 +486,20 @@
                     @endforeach
                 </tr>
                 <tr>
-                    <th>Total</th>
-                    <td colspan="6">=SUM(B69;C69;D69;E69;F69;G69)</td>
-                    <td colspan="2">=SUM(H69;I69)</td>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Total</th>
+{{--                    <td colspan="6">=SUM(B70;C70;D70;E70;F70;G70)</td>--}}
+{{--                    <td colspan="2">=SUM(H70;I70)</td>--}}
+                    <td colspan="6">=SUM(B70:G70)</td>
+                    <td colspan="2">=SUM(H70:I70)</td>
                 </tr>
                 <tr>
-                    <th>Net - Brut en %</th>
-                    <td>=(BD30-B69)/BD30</td>
-                    <td>=(BE30-C69)/BE30</td>
-                    <td>=(BF30-D69)/BE30</td>
-                    <td>=(BG30-E69)/BE30</td>
-                    <td>=(BH30-F69)/BE30</td>
-                    <td>=(BI30-G69)/BE30</td>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Net - Brut en %</th>
+                    <td>=(BD30-B70)/BD30</td>
+                    <td>=(BE30-C70)/BE30</td>
+                    <td>=(BF30-D70)/BE30</td>
+                    <td>=(BG30-E70)/BE30</td>
+                    <td>=(BH30-F70)/BE30</td>
+                    <td>=(BI30-G70)/BE30</td>
                 </tr>
             </table>
         </div>

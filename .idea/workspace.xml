@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ae65ad3-ca20-43fc-b5fe-e7c34ac618e9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductionExportsSheet.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/TestPerformance.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/TestPerformance.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductionExports.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/CentraleSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/CentraleSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/excel.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/excelTemplate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/old.excelTemplate.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,13 +44,6 @@
         <item name="one@192.168.10.10" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="one: schema" type="76f4a085:MysqlImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="one@192.168.10.10" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="one: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="tac_infos: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -284,7 +273,7 @@
       <workItem from="1592994944862" duration="21987000" />
       <workItem from="1593021285434" duration="583000" />
       <workItem from="1593031838374" duration="6621000" />
-      <workItem from="1593079200402" duration="14820000" />
+      <workItem from="1593079200402" duration="16600000" />
     </task>
     <servers />
   </component>
