@@ -91,8 +91,8 @@ const InterconnexionForm = ({
                             value={formData.productions[e].recu}
                             onChange={event => {
                                 let value = event.target.value;
-                                console.log(value);
-                                console.log(isNaN(value));
+                                // console.log(value);
+                                // console.log(isNaN(value));
 
                                 if (
                                     Number(value) < 0 ||
@@ -103,7 +103,7 @@ const InterconnexionForm = ({
                                 }
                                 const newProductions = formData.productions;
                                 newProductions[e].recu = Number(value);
-                                console.log(newProductions[e]);
+                                // console.log(newProductions[e]);
 
                                 // newProduction[e] = value;
                                 setFormData({
@@ -119,8 +119,8 @@ const InterconnexionForm = ({
                             value={formData.productions[e].fourni}
                             onChange={event => {
                                 let value = event.target.value;
-                                console.log(value);
-                                console.log(isNaN(value));
+                                // console.log(value);
+                                // console.log(isNaN(value));
 
                                 if (
                                     Number(value) < 0 ||
@@ -131,7 +131,7 @@ const InterconnexionForm = ({
                                 }
                                 const newProductions = formData.productions;
                                 newProductions[e].fourni = Number(value);
-                                console.log(newProductions[e]);
+                                // console.log(newProductions[e]);
 
                                 // newProduction[e] = value;
                                 setFormData({

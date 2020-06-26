@@ -16,6 +16,8 @@ import { BeatLoader } from "react-spinners";
 import Card from "../components/Card/Card";
 import auth from "../actions/auth";
 
+import loginBG from "../assets/img/login-bg.jpg";
+
 const Auth = () => {
     const [formData, setFormData] = useState({ username: "", password: "" });
     const dispatch = useDispatch();
@@ -66,8 +68,14 @@ const Auth = () => {
             </Col>
         );
     }
+    const loginBackground = {
+        backgroundImage: "url(" + loginBG + ")",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "cover"
+    };
     return (
-        <div className="content">
+        <div className="content  loginContainer" style={loginBackground}>
             {authRedirect}
             <Container>
                 <Row>

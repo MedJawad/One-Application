@@ -63,7 +63,7 @@ const TurbineGazForm = ({
         }
         setFormData({ ...formData, productions });
     }, []);
-    console.log(formData);
+    // console.log(formData);
 
     const renderProduction = () => {
         const content = [];
@@ -77,8 +77,8 @@ const TurbineGazForm = ({
                         value={formData.productions[e]}
                         onChange={event => {
                             let value = event.target.value;
-                            console.log(value);
-                            console.log(isNaN(value));
+                            // console.log(value);
+                            // console.log(isNaN(value));
 
                             if (
                                 Number(value) < 0 ||
@@ -89,7 +89,7 @@ const TurbineGazForm = ({
                             }
                             const newProductions = formData.productions;
                             newProductions[e] = Number(value);
-                            console.log(newProductions[e]);
+                            // console.log(newProductions[e]);
 
                             // newProduction[e] = value;
                             setFormData({

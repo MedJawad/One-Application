@@ -59,13 +59,7 @@ export const adminRoutes = [
     //     // component: NewCentrale,
     //     render: props => <NewCentrale {...props} />
     // },
-    {
-        path: "/admin/getReport",
-        name: "Telecharger Rapport",
-        icon: <FaDownload size={30} />, //"pe-7s-note2",
-        // component: ReportsList,
-        render: props => <DownloadReport {...props} />
-    },
+    
     {
         path: "/admin/barrages",
         name: "Barrages",
@@ -117,4 +111,11 @@ export const adminRoutes = [
         // component: CentralesList,
         render: props => <CentralesList {...props} type={"interconnexion"} />
     }
+    {
+        path: "/admin/getReport",
+        name: "Telecharger Rapport",
+        icon: <FaDownload size={30} />, //"pe-7s-note2",
+        // component: ReportsList,
+        render: props => <DownloadReport {...props} />
+    },
 ];

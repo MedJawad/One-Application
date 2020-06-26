@@ -113,8 +113,8 @@ const BarrageForm = ({
                         value={formData.productions[e]}
                         onChange={event => {
                             let value = event.target.value;
-                            console.log(value);
-                            console.log(isNaN(value));
+                            // console.log(value);
+                            // console.log(isNaN(value));
 
                             if (
                                 Number(value) < 0 ||
@@ -125,7 +125,7 @@ const BarrageForm = ({
                             }
                             const newproductions = formData.productions;
                             newproductions[e] = Number(value);
-                            console.log(newproductions[e]);
+                            // console.log(newproductions[e]);
                             setFormData({
                                 ...formData,
                                 productions: newproductions

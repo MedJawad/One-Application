@@ -23,14 +23,14 @@ const AppEntry = props => {
         if (!role) {
             api.get("/details")
                 .then(res => {
-                    console.log(res);
+                    // console.log(res);
                     const role = res.data.role;
                     role.toLowerCase() === "admin" && setRoutes(adminRoutes);
                     role.toLowerCase() === "pch" && setRoutes(pchRoutes);
                     role.toLowerCase() === "user" && setRoutes(userRoutes);
                     return res;
                 })
-                .catch(err => console.log(err))
+                .catch(err => err)
                 .then(() => setLoaded(true));
         } else {
             role.toLowerCase() === "admin" && setRoutes(adminRoutes);

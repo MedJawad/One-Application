@@ -2,10 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ae65ad3-ca20-43fc-b5fe-e7c34ac618e9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/ControlAccessByIpAdress.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/TestPerformance.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/excel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/Auth/Auth.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/Auth/Auth.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/admin/EditCentrale.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/admin/EditCentrale.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/user/ReportsList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/user/ReportsList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/user/forms/BarrageForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/user/forms/BarrageForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/user/forms/InterconnexionForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/user/forms/InterconnexionForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/user/forms/PrevisionsForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/user/forms/PrevisionsForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/user/forms/SolaireForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/user/forms/SolaireForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/user/forms/ThermiqueCharbonForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/user/forms/ThermiqueCharbonForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/src/views/user/forms/TurbineGazForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/src/views/user/forms/TurbineGazForm.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,7 +289,8 @@
       <workItem from="1592994944862" duration="21987000" />
       <workItem from="1593021285434" duration="583000" />
       <workItem from="1593031838374" duration="6621000" />
-      <workItem from="1593079200402" duration="16600000" />
+      <workItem from="1593079200402" duration="17452000" />
+      <workItem from="1593170978041" duration="1484000" />
     </task>
     <servers />
   </component>

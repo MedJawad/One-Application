@@ -58,7 +58,7 @@ const PrevisionsForm = ({ setSubmittedCorrectly, handleFormSubmit }) => {
                 setLoaded(true);
                 // setSubmittedCorrectly(true);
             })
-            .catch(err => console.log(err));
+            .catch(err => err);
 
         // setTimeout(() => setSubmittedCorrectly(false), 2000);
     }, []);

@@ -25,7 +25,7 @@ const App = props => {
     useEffect(() => {
         dispatch(authActions.loginWithCookie());
     }, [dispatch]);
-    console.log(isAuthenticated);
+    // console.log(isAuthenticated);
 
     let authRedirect = null;
     if (!isAuthenticated) {

@@ -104,8 +104,8 @@ const SolaireForm = ({
                         value={formData.production[e]}
                         onChange={event => {
                             let value = event.target.value;
-                            console.log(value);
-                            console.log(isNaN(value));
+                            // console.log(value);
+                            // console.log(isNaN(value));
 
                             if (
                                 Number(value) < 0 ||
@@ -116,7 +116,7 @@ const SolaireForm = ({
                             }
                             const newProduction = formData.production;
                             newProduction[e] = Number(value);
-                            console.log(newProduction[e]);
+                            // console.log(newProduction[e]);
 
                             // newProduction[e] = value;
                             setFormData({

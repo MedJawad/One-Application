@@ -22,13 +22,13 @@ const ReportsList = ({ type }) => {
 
     const fetchReports = () => {
         api.get(`/reports`)
-            .then(res => (res.status === 200 ? res.data : console.log(res)))
+            .then(res => (res.status === 200 ? res.data : null))
             .then(data => {
                 setReports(data.reports);
-                console.log(data);
-                setLoaded(true);
+                // console.log(data);
             })
-            .catch(error => alert("Failed to fetch Data from Server " + error));
+            .catch(error => alert("Failed to fetch Data from Server " + error))
+            .then(() => setLoaded(true));
     };
     useEffect(fetchReports, []);
 
