@@ -76,8 +76,8 @@ class ProductionExports implements FromView, WithEvents, ShouldAutoSize
             array_push($headers, $c->nom . ' R-F');
         }
 //        dd($headers);
-        $barrageData = $this->formatData($barrages);
         $turbineData = $this->formatData($turbines);
+        $barrageData = $this->formatData($barrages);
         $eolienData = $this->formatData($eoliens);
         $thermiqueData = $this->formatData($thermiques);
         $ccData = $this->formatData($cycleCombines);
@@ -109,24 +109,24 @@ class ProductionExports implements FromView, WithEvents, ShouldAutoSize
         foreach ($turbines as $t) {
             $combustibles[$t->nom] = array();
             $yesterday = date('Y-m-d', strtotime("-1 days"));
-            $info = $t->infos->where('date', '=', $yesterday)->where("horaire", "=", "24")->first();
-            if (isset($info)) {
+            $info24 = $t->infos->where('date', '=', $yesterday)->where("horaire", "=", "24")->first();
+            if (isset($info24)) {
 
                 $combustibles[$t->nom]['stock'] = 0;
-                $combustibles[$t->nom]['livraison_fioul'] = $info->livraison_fioul;
-                $combustibles[$t->nom]['consommation_fioul'] = $info->consommation_fioul;
-                $combustibles[$t->nom]['transfert_fioul'] = $info->transfert_fioul;
+                $combustibles[$t->nom]['livraison_fioul'] = $info24->livraison_fioul;
+                $combustibles[$t->nom]['consommation_fioul'] = $info24->consommation_fioul;
+                $combustibles[$t->nom]['transfert_fioul'] = $info24->transfert_fioul;
 
                 if (strcmp($t->subtype, "+gazoil") === 0) {
-                    $combustibles[$t->nom]['production_gazoil'] = $info->production_gazoil;
-                    $combustibles[$t->nom]['livraison_gazoil'] = $info->livraison_gazoil;
-                    $combustibles[$t->nom]['consommation_gazoil'] = $info->consommation_gazoil;
-                    $combustibles[$t->nom]['transfert_gazoil'] = $info->transfert_gazoil;
+                    $combustibles[$t->nom]['production_gazoil'] = $info24->production_gazoil;
+                    $combustibles[$t->nom]['livraison_gazoil'] = $info24->livraison_gazoil;
+                    $combustibles[$t->nom]['consommation_gazoil'] = $info24->consommation_gazoil;
+                    $combustibles[$t->nom]['transfert_gazoil'] = $info24->transfert_gazoil;
                 }
                 if (strcmp($t->subtype, "+charbon") === 0) {
-                    $combustibles[$t->nom]['livraison_charbon'] = $info->livraison_charbon;
-                    $combustibles[$t->nom]['consommation_charbon'] = $info->consommation_charbon;
-                    $combustibles[$t->nom]['transfert_charbon'] = $info->transfert_charbon;
+                    $combustibles[$t->nom]['livraison_charbon'] = $info24->livraison_charbon;
+                    $combustibles[$t->nom]['consommation_charbon'] = $info24->consommation_charbon;
+                    $combustibles[$t->nom]['transfert_charbon'] = $info24->transfert_charbon;
                 }
             } else {
                 $combustibles[$t->nom]['livraison_fioul'] = 0;
@@ -150,41 +150,56 @@ class ProductionExports implements FromView, WithEvents, ShouldAutoSize
         foreach ($barrages as $b) {
             $barInfos[$b->nom] = array();
             $yesterday = date('Y-m-d', strtotime("-1 days"));
-            $info = $b->infos->where('date', '=', $yesterday)->where("horaire", "=", "24")->first();
-            if (!isset($info)) continue;
+            $info24 = $b->infos->where('date', '=', $yesterday)->where("horaire", "=", "24")->first();
+            $info14 = $b->infos->where('date', '=', $yesterday)->where("horaire", "=", "14")->first();
+            $info11 = $b->infos->where('date', '=', $yesterday)->where("horaire", "=", "11")->first();
+            $info7 = $b->infos->where('date', '=', $yesterday)->where("horaire", "=", "7")->first();
+            if (!isset($info24)) continue;
             switch ($b->subtype) {
                 case "normal" :
                 {
-                    $barInfos[$b->nom]['cote'] = $info->cote;
-                    $barInfos[$b->nom]['turbine'] = $info->turbine;
-                    $barInfos[$b->nom]['irrigation'] = $info->irrigation;
-                    $barInfos[$b->nom]['lache'] = $info->lache;
+                    $barInfos[$b->nom]['cote']['24H'] = $info24->cote;
+                    $barInfos[$b->nom]['cote']['14H'] = $info14->cote;
+                    $barInfos[$b->nom]['cote']['11H'] = $info11->cote;
+                    $barInfos[$b->nom]['cote']['7H'] = $info7->cote;
+                    $barInfos[$b->nom]['turbine'] = $info24->turbine;
+                    $barInfos[$b->nom]['irrigation'] = $info24->irrigation;
+                    $barInfos[$b->nom]['lache'] = $info24->lache;
                     break;
                 }
                 case "+cote":
                 {
-                    $barInfos[$b->nom]['cote'] = $info->cote;
-                    $barInfos[$b->nom]['cote2'] = $info->cote2;
-                    $barInfos[$b->nom]['turbine'] = $info->turbine;
-                    $barInfos[$b->nom]['irrigation'] = $info->irrigation;
-                    $barInfos[$b->nom]['lache'] = $info->lache;
+                    $barInfos[$b->nom]['cote']['24H'] = $info24->cote;
+                    $barInfos[$b->nom]['cote']['14H'] = $info14->cote;
+                    $barInfos[$b->nom]['cote']['11H'] = $info11->cote;
+                    $barInfos[$b->nom]['cote']['7H'] = $info7->cote;
+                    $barInfos[$b->nom]['cote2']['24H'] = $info24->cote2;
+                    $barInfos[$b->nom]['cote2']['14H'] = $info14->cote2;
+                    $barInfos[$b->nom]['cote2']['11H'] = $info11->cote2;
+                    $barInfos[$b->nom]['cote2']['7H'] = $info7->cote2;
+                    $barInfos[$b->nom]['turbine'] = $info24->turbine;
+                    $barInfos[$b->nom]['irrigation'] = $info24->irrigation;
+                    $barInfos[$b->nom]['lache'] = $info24->lache;
                     break;
                 }
                 case "-cote":
                 {
-                    $barInfos[$b->nom]['turbine'] = $info->turbine;
-                    $barInfos[$b->nom]['irrigation'] = $info->irrigation;
-                    $barInfos[$b->nom]['lache'] = $info->lache;
+                    $barInfos[$b->nom]['turbine'] = $info24->turbine;
+                    $barInfos[$b->nom]['irrigation'] = $info24->irrigation;
+                    $barInfos[$b->nom]['lache'] = $info24->lache;
                     break;
                 }
                 case "onlyVolumePompe":
                 {
-                    $barInfos[$b->nom]['volume_pompe'] = $info->volume_pompe;
+                    $barInfos[$b->nom]['volume_pompe'] = $info24->volume_pompe;
                     break;
                 }
                 case "onlyProductionCote":
                 {
-                    $barInfos[$b->nom]['cote'] = $info->cote;
+                    $barInfos[$b->nom]['cote']['24H'] = $info24->cote;
+                    $barInfos[$b->nom]['cote']['14H'] = $info14->cote;
+                    $barInfos[$b->nom]['cote']['11H'] = $info11->cote;
+                    $barInfos[$b->nom]['cote']['7H'] = $info7->cote;
                     break;
                 }
             }
@@ -214,9 +229,30 @@ class ProductionExports implements FromView, WithEvents, ShouldAutoSize
                 }
             }
         }
+        $solaireInfos = array();
+        foreach ($solaires as $s) {
+            $solaireInfos[$s->nom] = array();
+            $today = date('Y-m-d', strtotime("0 days"));
+            $info = $s->infos->where('date', '=', $today)->where("type", "=", "previsions")->first();
+            if (!isset($info)) continue;
+            foreach ($info->previsions as $prevision){
+                $solaireInfos[$s->nom]['previsions'][$prevision->horaire] = $prevision->value;
+            }
+        }
+        $eoliensInfos = array();
+        foreach ($eoliens as $e) {
+            $eoliensInfos[$e->nom] = array();
+            $today = date('Y-m-d', strtotime("0 days"));
+            $info = $e->infos->where('date', '=', $today)->where("type", "=", "previsions")->first();
+            if (!isset($info)) continue;
+            foreach ($info->previsions as $prevision){
+                $eoliensInfos[$e->nom]['previsions'][$prevision->horaire] = $prevision->value;
+            }
+        }
+
         return view('excel', [
             'headers' => $headers,
-            'combustibles' => $combustibles, 'barragesInfos' => $barInfos, 'thermiqueInfos' => $thermiqueInfos,
+            'combustibles' => $combustibles, 'barragesInfos' => $barInfos,"eoliensInfos"=>$eoliensInfos, 'thermiqueInfos' => $thermiqueInfos,"solairesInfos" =>$solaireInfos,
             'barragesProd' => $barrageData, 'turbinesProd' => $turbineData, 'eoliensProd' => $eolienData, 'thermiquesProd' => $thermiqueData, 'cyclesProd' => $ccData, "solairesProd" => $solaireData, 'intersProd' => $interData
 //            'barrages' => $barrageData, 'turbines' => $turbineData, 'eoliens' => $eolienData, 'thermiques' => $thermiqueData, 'cycles' => $ccData, "solaires" => $solaireData, 'inters' => $interData
         ]);

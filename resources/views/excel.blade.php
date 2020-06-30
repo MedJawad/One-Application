@@ -51,7 +51,7 @@
                 @for($i=1;$i<=24;$i++)
                     <tr>
                         <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">{{$i.'H'}}</th>
-                        @foreach($barragesProd as $centrale)
+                        @foreach($turbinesProd as $centrale)
                             @if(isset($centrale[$i.'H']))
                                 <td>
                                     {{$centrale[$i.'H']}}
@@ -61,7 +61,7 @@
                             @endif
                         @endforeach
                         <td>0</td>
-                        @foreach($turbinesProd as $centrale)
+                        @foreach($barragesProd as $centrale)
                             @if(isset($centrale[$i.'H']))
                                 <td>
                                     {{$centrale[$i.'H']}}
@@ -132,7 +132,7 @@
                     <th style="background-color: #ffc90b;color: #ff3b30;border : 1px solid black;text-align: center;">
                         Brut
                     </th>
-                    @foreach($barragesProd as $centrale)
+                    @foreach($turbinesProd as $centrale)
                         @if(isset($centrale['Brut']))
                             <td>
                                 {{$centrale['Brut']}}
@@ -142,7 +142,7 @@
                         @endif
                     @endforeach
                     <td>0</td>
-                    @foreach($turbinesProd as $centrale)
+                    @foreach($barragesProd as $centrale)
                         @if(isset($centrale['Brut']))
                             <td>
                                 {{$centrale['Brut']}}
@@ -212,7 +212,7 @@
                     <th style="background-color: #ffc90b;color: #ff3b30;border : 1px solid black;text-align: center;">
                         Net
                     </th>
-                    @foreach($barragesProd as $centrale)
+                    @foreach($turbinesProd as $centrale)
                         @if(isset($centrale['Net']))
                             <td>
                                 {{$centrale['Net']}}
@@ -222,7 +222,7 @@
                         @endif
                     @endforeach
                     <td>0</td>
-                    @foreach($turbinesProd as $centrale)
+                    @foreach($barragesProd as $centrale)
                         @if(isset($centrale['Net']))
                             <td>
                                 {{$centrale['Net']}}
@@ -276,9 +276,7 @@
                                 {{$centrale['total']["fourni"]-$centrale['total']["recu"]}}
                             </td>
                         @else
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
+                            <td colspan="3">0</td>
                         @endif
                     @endforeach
                 </tr>
@@ -286,13 +284,11 @@
             </table>
             <table border="1">
                 <tr>
-                    <td></td>
                     <td colspan="9" style="background-color: #83ff00;color: #ffffff;text-align: center;">Situation
                         Combustible
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
 
                     <td colspan="3" style="background-color: #ffbd00;color: #ffffff;text-align: center;">Centrale</td>
                     <td colspan="1" style="background-color: #ffbd00;color: #ffffff;text-align: center;">Stock utile
@@ -311,7 +307,6 @@
                 </tr>
                 @foreach($combustibles as $nom=>$comb)
                     <tr>
-                        <td></td>
                         <td>
                             {{$nom}}
                         </td>
@@ -327,7 +322,6 @@
                     </tr>
                     @if(isset($comb["livraison_charbon"]))
                         <tr>
-                            <td></td>
                             <td>
                             </td>
                             <td></td>
@@ -343,7 +337,6 @@
                     @endif
                     @if(isset($comb["livraison_gazoil"]))
                         <tr>
-                            <td></td>
                             <td>
                             </td>
                             <td></td>
@@ -411,17 +404,61 @@
                         Cote à 24H
                     </th>
                     @foreach($barragesInfos as $nom => $b)
-                        @if(isset($b['cote2']))
-                            <td colspan="1">{{$b['cote']}}</td>
-                            <td colspan="1">{{$b['cote2']}}</td>
-                        @elseif(isset($b['cote']))
-                            <td colspan="2">{{$b['cote']}}</td>
+                        @if(isset($b['cote2']['24H']))
+                            <td colspan="1">{{$b['cote']['24H']}}</td>
+                            <td colspan="1">{{$b['cote2']['24H']}}</td>
+                        @elseif(isset($b['cote']['24H']))
+                            <td colspan="2">{{$b['cote']['24H']}}</td>
                         @else
                             <td colspan="2"></td>
                         @endif
                     @endforeach
                 </tr>
-                <tr></tr>
+                <tr>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Cote à 14H
+                    </th>
+                    @foreach($barragesInfos as $nom => $b)
+                        @if(isset($b['cote2']['14H']))
+                            <td colspan="1">{{$b['cote']['14H']}}</td>
+                            <td colspan="1">{{$b['cote2']['14H']}}</td>
+                        @elseif(isset($b['cote']['14H']))
+                            <td colspan="2">{{$b['cote']['14H']}}</td>
+                        @else
+                            <td colspan="2"></td>
+                        @endif
+                    @endforeach
+                </tr>
+                <tr>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Cote à 11H
+                    </th>
+                    @foreach($barragesInfos as $nom => $b)
+                        @if(isset($b['cote2']['11H']))
+                            <td colspan="1">{{$b['cote']['11H']}}</td>
+                            <td colspan="1">{{$b['cote2']['11H']}}</td>
+                        @elseif(isset($b['cote']['11H']))
+                            <td colspan="2">{{$b['cote']['11H']}}</td>
+                        @else
+                            <td colspan="2"></td>
+                        @endif
+                    @endforeach
+                </tr>
+                <tr>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Cote à 7H
+                    </th>
+                    @foreach($barragesInfos as $nom => $b)
+                        @if(isset($b['cote2']['7H']))
+                            <td colspan="1">{{$b['cote']['7H']}}</td>
+                            <td colspan="1">{{$b['cote2']['7H']}}</td>
+                        @elseif(isset($b['cote']['7H']))
+                            <td colspan="2">{{$b['cote']['7H']}}</td>
+                        @else
+                            <td colspan="2"></td>
+                        @endif
+                    @endforeach
+                </tr>
                 <tr>
                     <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
                         Volume Pompe
@@ -436,15 +473,19 @@
                 </tr>
             </table>
 
-            <table >
+            <table>
                 <tr>
-                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Nom</th>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Nom
+                    </th>
                     @foreach($thermiqueInfos as $nom => $t)
-                        <td  style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">{{$nom}}</td>
+                        <td style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">{{$nom}}</td>
                     @endforeach
                 </tr>
                 <tr>
-                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Autonomie Charbon</th>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Autonomie Charbon
+                    </th>
                     @foreach($thermiqueInfos as $nom => $t)
                         @if(isset($t['autonomie_charbon']))
                             <td>{{$t['autonomie_charbon']}}</td>
@@ -454,7 +495,9 @@
                     @endforeach
                 </tr>
                 <tr>
-                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Ancien Index</th>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Ancien Index
+                    </th>
                     @foreach($thermiqueInfos as $nom => $t)
                         @if(isset($t['oldIndex']))
                             <td>{{$t['oldIndex']}}</td>
@@ -464,7 +507,9 @@
                     @endforeach
                 </tr>
                 <tr>
-                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Nouveau Index</th>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Nouveau Index
+                    </th>
                     @foreach($thermiqueInfos as $nom => $t)
                         @if(isset($t['index']))
                             <td>{{$t['index']}}</td>
@@ -474,7 +519,9 @@
                     @endforeach
                 </tr>
                 <tr>
-                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Net</th>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Net
+                    </th>
                     @foreach($thermiqueInfos as $nom => $t)
                         @if(isset($t['oldIndex']))
                             <td>{{$t['index'] - $t['oldIndex']}}</td>
@@ -486,14 +533,18 @@
                     @endforeach
                 </tr>
                 <tr>
-                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Total</th>
-{{--                    <td colspan="6">=SUM(B70;C70;D70;E70;F70;G70)</td>--}}
-{{--                    <td colspan="2">=SUM(H70;I70)</td>--}}
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Total
+                    </th>
+                    {{--                    <td colspan="6">=SUM(B70;C70;D70;E70;F70;G70)</td>--}}
+                    {{--                    <td colspan="2">=SUM(H70;I70)</td>--}}
                     <td colspan="6">=SUM(B70:G70)</td>
                     <td colspan="2">=SUM(H70:I70)</td>
                 </tr>
                 <tr>
-                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Net - Brut en %</th>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Net - Brut en %
+                    </th>
                     <td>=(BD30-B70)/BD30</td>
                     <td>=(BE30-C70)/BE30</td>
                     <td>=(BF30-D70)/BE30</td>
@@ -501,6 +552,56 @@
                     <td>=(BH30-F70)/BE30</td>
                     <td>=(BI30-G70)/BE30</td>
                 </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Nom
+                    </th>
+                    @foreach($eoliensInfos as $nom => $t)
+                        <td style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">{{$nom}}</td>
+                    @endforeach
+                </tr>
+                @for($i=1;$i<=24;$i++)
+                    <tr>
+                        <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Prévision pour {{$i.'H'}}</th>
+                        @foreach($eoliensInfos as $e)
+                            @if(isset($e['previsions'][$i.'H']))
+                                <td>
+                                    {{$e['previsions'][$i.'H']}}
+                                </td>
+                            @else
+                                <td></td>
+                            @endif
+                        @endforeach
+                    </tr>
+                @endfor
+            </table>
+
+            <table>
+                <tr>
+                    <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">
+                        Nom
+                    </th>
+                    @foreach($solairesInfos as $nom => $s)
+                        <td style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">{{$nom}}</td>
+                    @endforeach
+                </tr>
+                @for($i=1;$i<=24;$i++)
+                    <tr>
+                        <th style="border : 1px solid black;background-color: #00bbff;color: #ff3b30;text-align: center;">Prévision pour {{$i.'H'}}</th>
+                        @foreach($solairesInfos as $s)
+                            @if(isset($s['previsions'][$i.'H']))
+                                <td>
+                                    {{$s['previsions'][$i.'H']}}
+                                </td>
+                            @else
+                                <td></td>
+                            @endif
+                        @endforeach
+                    </tr>
+                @endfor
             </table>
         </div>
     </div>

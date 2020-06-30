@@ -59,7 +59,7 @@ export const adminRoutes = [
     //     // component: NewCentrale,
     //     render: props => <NewCentrale {...props} />
     // },
-    
+
     {
         path: "/admin/barrages",
         name: "Barrages",
@@ -110,7 +110,7 @@ export const adminRoutes = [
         icon: <GiSplitCross size={30} />, // "pe-7s-diskette",
         // component: CentralesList,
         render: props => <CentralesList {...props} type={"interconnexion"} />
-    }
+    },
     {
         path: "/admin/getReport",
         name: "Telecharger Rapport",
